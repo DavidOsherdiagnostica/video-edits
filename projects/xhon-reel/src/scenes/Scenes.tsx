@@ -169,7 +169,7 @@ export const Count: React.FC = () => {
       zooms={[[0, 1.0]]}
       shakes={[b + 6]}
       behind={
-        <BigText top={80} size={205} appear={a - 4} font={FONT.display} color={C.glow} spacing={-6} style={{direction: 'ltr'}}>
+        <BigText top={90} size={180} appear={a - 4} font={FONT.display} color={C.glow} spacing={-6} style={{direction: 'ltr'}}>
           {n.toLocaleString('en-US')}+
         </BigText>
       }
@@ -686,7 +686,7 @@ export const Info: React.FC = () => {
   const dec = at('info', 'ההחלטה');
   const fade = (a: number, b: number) => (frame >= a && frame < b ? 1 : 0);
   const coins = [
-    {src: 'img/coin-shekel.png', x: -90, y: 560, w: 300, sp: 0.8, ph: 0},
+    {src: 'img/coin-shekel.png', x: -110, y: 990, w: 300, sp: 0.8, ph: 0},
     {src: 'img/coin-euro.png', x: 850, y: 1600, w: 280, sp: 1.1, ph: 2},
   ];
   return (
