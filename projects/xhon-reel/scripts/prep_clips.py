@@ -54,8 +54,8 @@ def run(cmd):
 
 
 def cut_video(a, b, x0, path):
-    vf = (f'crop={CROP_W}:{CLEAN_H}:{x0}:0,hqdn3d=1.5:1.5:4:4,'
-          f'scale=1080:1920:flags=lanczos,unsharp=5:5:0.6:5:5:0.0,setsar=1')
+    vf = (f'crop={CROP_W}:{CLEAN_H}:{x0}:0,hqdn3d=0.8:0.8:3:3,'
+          f'scale=1080:1920:flags=lanczos,unsharp=5:5:0.75:5:5:0.0,setsar=1')
     run(['ffmpeg', '-y', '-ss', f'{a:.3f}', '-i', SRC, '-t', f'{b - a:.3f}', '-vf', vf,
          '-af', 'loudnorm=I=-15:TP=-1.5:LRA=9', '-ar', '48000',
          '-c:v', 'libx264', '-preset', 'slow', '-crf', '14', '-pix_fmt', 'yuv420p',
