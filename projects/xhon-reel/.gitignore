@@ -1,0 +1,8 @@
+node_modules/
+out/
+public/clips/
+public/img/
+public/vid/
+public/pdf/
+public/sfx/
+public/music.wav

@@ -1,0 +1,1999 @@
+{
+ "fps": 30,
+ "bpm": 120,
+ "duration": 73.25,
+ "scenes": [
+  {
+   "id": "hook",
+   "start": 0.0,
+   "end": 4.75
+  },
+  {
+   "id": "jaw",
+   "start": 4.75,
+   "end": 9.25
+  },
+  {
+   "id": "count",
+   "start": 9.25,
+   "end": 11.75
+  },
+  {
+   "id": "pdf",
+   "start": 11.75,
+   "end": 15.25
+  },
+  {
+   "id": "army",
+   "start": 15.25,
+   "end": 19.0
+  },
+  {
+   "id": "logo",
+   "start": 19.0,
+   "end": 21.0
+  },
+  {
+   "id": "hero",
+   "start": 21.0,
+   "end": 24.25
+  },
+  {
+   "id": "chat",
+   "start": 24.25,
+   "end": 28.25
+  },
+  {
+   "id": "twothings",
+   "start": 28.25,
+   "end": 31.0
+  },
+  {
+   "id": "noai",
+   "start": 31.0,
+   "end": 33.25
+  },
+  {
+   "id": "trust",
+   "start": 33.25,
+   "end": 37.25
+  },
+  {
+   "id": "speed",
+   "start": 37.25,
+   "end": 40.25
+  },
+  {
+   "id": "nothours",
+   "start": 40.25,
+   "end": 43.25
+  },
+  {
+   "id": "skeletons",
+   "start": 43.25,
+   "end": 45.75
+  },
+  {
+   "id": "deal",
+   "start": 45.75,
+   "end": 52.5
+  },
+  {
+   "id": "samesum",
+   "start": 52.5,
+   "end": 54.75
+  },
+  {
+   "id": "usa",
+   "start": 54.75,
+   "end": 59.5
+  },
+  {
+   "id": "info",
+   "start": 59.5,
+   "end": 66.75
+  },
+  {
+   "id": "crazy",
+   "start": 66.75,
+   "end": 69.75
+  },
+  {
+   "id": "end",
+   "start": 69.75,
+   "end": 73.25
+  }
+ ],
+ "segments": [
+  {
+   "scene": "hook",
+   "clip": "hook",
+   "part": 0,
+   "start": 0.75,
+   "dur": 3.97,
+   "file": "clips/hook_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "danny"
+  },
+  {
+   "scene": "jaw",
+   "clip": "jaw",
+   "part": 0,
+   "start": 4.75,
+   "dur": 0.85,
+   "file": "clips/jaw_0.mp4",
+   "fg": "clips/jaw_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "jaw",
+   "clip": "jaw",
+   "part": 1,
+   "start": 5.63,
+   "dur": 3.55,
+   "file": "clips/jaw_1.mp4",
+   "fg": "clips/jaw_1-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "count",
+   "clip": "5000",
+   "part": 0,
+   "start": 9.25,
+   "dur": 2.34,
+   "file": "clips/5000_0.mp4",
+   "fg": "clips/5000_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "pdf",
+   "clip": "pdf200",
+   "part": 0,
+   "start": 11.75,
+   "dur": 3.38,
+   "file": "clips/pdf200_0.mp4",
+   "fg": "clips/pdf200_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "army",
+   "clip": "army",
+   "part": 0,
+   "start": 15.25,
+   "dur": 1.66,
+   "file": "clips/army_0.mp4",
+   "fg": "clips/army_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "army",
+   "clip": "army",
+   "part": 1,
+   "start": 16.94,
+   "dur": 2.0,
+   "file": "clips/army_1.mp4",
+   "fg": "clips/army_1-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "hero",
+   "clip": "likegpt",
+   "part": 0,
+   "start": 21.0,
+   "dur": 3.17,
+   "file": "clips/likegpt_0.mp4",
+   "fg": "clips/likegpt_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "chat",
+   "clip": "elal",
+   "part": 0,
+   "start": 24.25,
+   "dur": 3.45,
+   "file": "clips/elal_0.mp4",
+   "fg": "clips/elal_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "twothings",
+   "clip": "twothings",
+   "part": 0,
+   "start": 28.25,
+   "dur": 2.49,
+   "file": "clips/twothings_0.mp4",
+   "fg": "clips/twothings_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "noai",
+   "clip": "noai",
+   "part": 0,
+   "start": 31.0,
+   "dur": 2.08,
+   "file": "clips/noai_0.mp4",
+   "fg": "clips/noai_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "trust",
+   "clip": "faithful",
+   "part": 0,
+   "start": 33.25,
+   "dur": 2.03,
+   "file": "clips/faithful_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "david"
+  },
+  {
+   "scene": "trust",
+   "clip": "asmachta",
+   "part": 0,
+   "start": 35.43,
+   "dur": 1.58,
+   "file": "clips/asmachta_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "david"
+  },
+  {
+   "scene": "speed",
+   "clip": "seconds",
+   "part": 0,
+   "start": 37.25,
+   "dur": 2.8,
+   "file": "clips/seconds_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "david"
+  },
+  {
+   "scene": "nothours",
+   "clip": "nothours",
+   "part": 0,
+   "start": 40.25,
+   "dur": 2.76,
+   "file": "clips/nothours_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "david"
+  },
+  {
+   "scene": "skeletons",
+   "clip": "skeletons",
+   "part": 0,
+   "start": 43.25,
+   "dur": 2.44,
+   "file": "clips/skeletons_0.wav",
+   "fg": null,
+   "audioOnly": true,
+   "spk": "david"
+  },
+  {
+   "scene": "deal",
+   "clip": "sub250",
+   "part": 0,
+   "start": 45.75,
+   "dur": 3.38,
+   "file": "clips/sub250_0.mp4",
+   "fg": "clips/sub250_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "deal",
+   "clip": "dividend",
+   "part": 0,
+   "start": 49.28,
+   "dur": 2.98,
+   "file": "clips/dividend_0.mp4",
+   "fg": "clips/dividend_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "samesum",
+   "clip": "samesum",
+   "part": 0,
+   "start": 52.5,
+   "dur": 1.74,
+   "file": "clips/samesum_0.mp4",
+   "fg": "clips/samesum_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "usa",
+   "clip": "usa",
+   "part": 0,
+   "start": 54.75,
+   "dur": 2.3,
+   "file": "clips/usa_0.mp4",
+   "fg": "clips/usa_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "usa",
+   "clip": "usa",
+   "part": 1,
+   "start": 57.08,
+   "dur": 0.92,
+   "file": "clips/usa_1.mp4",
+   "fg": "clips/usa_1-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "usa",
+   "clip": "usa",
+   "part": 2,
+   "start": 58.03,
+   "dur": 1.33,
+   "file": "clips/usa_2.mp4",
+   "fg": "clips/usa_2-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "info",
+   "clip": "info",
+   "part": 0,
+   "start": 59.5,
+   "dur": 7.15,
+   "file": "clips/info_0.mp4",
+   "fg": "clips/info_0-fg.webm",
+   "audioOnly": false,
+   "spk": "david"
+  },
+  {
+   "scene": "crazy",
+   "clip": "crazy",
+   "part": 0,
+   "start": 66.75,
+   "dur": 2.78,
+   "file": "clips/crazy_0.mp4",
+   "fg": "clips/crazy_0-fg.webm",
+   "audioOnly": false,
+   "spk": "danny"
+  }
+ ],
+ "captions": [
+  {
+   "start": 0.82,
+   "end": 1.74,
+   "words": [
+    {
+     "text": "מתי",
+     "start": 0.82,
+     "end": 1.1,
+     "hl": false
+    },
+    {
+     "text": "בפעם",
+     "start": 1.1,
+     "end": 1.4,
+     "hl": false
+    },
+    {
+     "text": "האחרונה",
+     "start": 1.4,
+     "end": 1.74,
+     "hl": false
+    }
+   ],
+   "scene": "hook",
+   "spk": "danny"
+  },
+  {
+   "start": 1.74,
+   "end": 3.0,
+   "words": [
+    {
+     "text": "ניסיתם",
+     "start": 1.74,
+     "end": 2.12,
+     "hl": false
+    },
+    {
+     "text": "לקרוא",
+     "start": 2.12,
+     "end": 2.5,
+     "hl": false
+    },
+    {
+     "text": "איזשהו",
+     "start": 2.5,
+     "end": 3.0,
+     "hl": false
+    }
+   ],
+   "scene": "hook",
+   "spk": "danny"
+  },
+  {
+   "start": 3.0,
+   "end": 3.86,
+   "words": [
+    {
+     "text": "דוח",
+     "start": 3.0,
+     "end": 3.22,
+     "hl": false
+    },
+    {
+     "text": "כספי",
+     "start": 3.22,
+     "end": 3.64,
+     "hl": false
+    },
+    {
+     "text": "של",
+     "start": 3.64,
+     "end": 3.86,
+     "hl": false
+    }
+   ],
+   "scene": "hook",
+   "spk": "danny"
+  },
+  {
+   "start": 3.86,
+   "end": 4.68,
+   "words": [
+    {
+     "text": "מאה",
+     "start": 3.86,
+     "end": 4.2,
+     "hl": false
+    },
+    {
+     "text": "עמודים",
+     "start": 4.2,
+     "end": 4.68,
+     "hl": false
+    }
+   ],
+   "scene": "hook",
+   "spk": "danny"
+  },
+  {
+   "start": 4.82,
+   "end": 5.58,
+   "words": [
+    {
+     "text": "וכשהגעתי",
+     "start": 4.82,
+     "end": 5.58,
+     "hl": false
+    }
+   ],
+   "scene": "jaw",
+   "spk": "david"
+  },
+  {
+   "start": 5.68,
+   "end": 6.88,
+   "words": [
+    {
+     "text": "למחסן",
+     "start": 5.68,
+     "end": 6.1,
+     "hl": false
+    },
+    {
+     "text": "של",
+     "start": 6.1,
+     "end": 6.34,
+     "hl": false
+    },
+    {
+     "text": "הרשות",
+     "start": 6.34,
+     "end": 6.88,
+     "hl": false
+    }
+   ],
+   "scene": "jaw",
+   "spk": "david"
+  },
+  {
+   "start": 6.88,
+   "end": 7.48,
+   "words": [
+    {
+     "text": "לניירות",
+     "start": 6.88,
+     "end": 7.28,
+     "hl": false
+    },
+    {
+     "text": "ערך",
+     "start": 7.28,
+     "end": 7.48,
+     "hl": false
+    }
+   ],
+   "scene": "jaw",
+   "spk": "david"
+  },
+  {
+   "start": 7.82,
+   "end": 8.58,
+   "words": [
+    {
+     "text": "פשוט",
+     "start": 7.82,
+     "end": 8.16,
+     "hl": false
+    },
+    {
+     "text": "נפלה",
+     "start": 8.16,
+     "end": 8.42,
+     "hl": false
+    },
+    {
+     "text": "לי",
+     "start": 8.42,
+     "end": 8.58,
+     "hl": false
+    }
+   ],
+   "scene": "jaw",
+   "spk": "david"
+  },
+  {
+   "start": 8.58,
+   "end": 9.06,
+   "words": [
+    {
+     "text": "הלסת",
+     "start": 8.58,
+     "end": 9.06,
+     "hl": true
+    }
+   ],
+   "scene": "jaw",
+   "spk": "david"
+  },
+  {
+   "start": 9.3,
+   "end": 10.88,
+   "words": [
+    {
+     "text": "מעל",
+     "start": 9.3,
+     "end": 9.52,
+     "hl": false
+    },
+    {
+     "text": "5,000",
+     "start": 9.52,
+     "end": 9.94,
+     "hl": true
+    },
+    {
+     "text": "בחודש",
+     "start": 9.94,
+     "end": 10.88,
+     "hl": false
+    }
+   ],
+   "scene": "count",
+   "spk": "david"
+  },
+  {
+   "start": 10.88,
+   "end": 11.59,
+   "words": [
+    {
+     "text": "דיווחים",
+     "start": 10.88,
+     "end": 11.59,
+     "hl": false
+    }
+   ],
+   "scene": "count",
+   "spk": "david"
+  },
+  {
+   "start": 11.82,
+   "end": 12.84,
+   "words": [
+    {
+     "text": "פלוס",
+     "start": 11.82,
+     "end": 12.18,
+     "hl": false
+    },
+    {
+     "text": "PDF",
+     "start": 12.18,
+     "end": 12.46,
+     "hl": true
+    },
+    {
+     "text": "של",
+     "start": 12.46,
+     "end": 12.84,
+     "hl": false
+    }
+   ],
+   "scene": "pdf",
+   "spk": "david"
+  },
+  {
+   "start": 12.84,
+   "end": 13.58,
+   "words": [
+    {
+     "text": "200",
+     "start": 12.84,
+     "end": 13.04,
+     "hl": true
+    },
+    {
+     "text": "עמוד",
+     "start": 13.04,
+     "end": 13.58,
+     "hl": false
+    }
+   ],
+   "scene": "pdf",
+   "spk": "david"
+  },
+  {
+   "start": 13.96,
+   "end": 15.08,
+   "words": [
+    {
+     "text": "פלוס",
+     "start": 13.96,
+     "end": 14.4,
+     "hl": false
+    },
+    {
+     "text": "טבלאות",
+     "start": 14.4,
+     "end": 15.08,
+     "hl": false
+    }
+   ],
+   "scene": "pdf",
+   "spk": "david"
+  },
+  {
+   "start": 15.28,
+   "end": 15.62,
+   "words": [
+    {
+     "text": "אם",
+     "start": 15.28,
+     "end": 15.4,
+     "hl": false
+    },
+    {
+     "text": "אין",
+     "start": 15.4,
+     "end": 15.5,
+     "hl": false
+    },
+    {
+     "text": "לך",
+     "start": 15.5,
+     "end": 15.62,
+     "hl": false
+    }
+   ],
+   "scene": "army",
+   "spk": "david"
+  },
+  {
+   "start": 15.62,
+   "end": 16.88,
+   "words": [
+    {
+     "text": "צבא",
+     "start": 15.62,
+     "end": 16.04,
+     "hl": true
+    },
+    {
+     "text": "של",
+     "start": 16.04,
+     "end": 16.2,
+     "hl": false
+    },
+    {
+     "text": "אנליסטים",
+     "start": 16.2,
+     "end": 16.88,
+     "hl": true
+    }
+   ],
+   "scene": "army",
+   "spk": "david"
+  },
+  {
+   "start": 17.0,
+   "end": 17.98,
+   "words": [
+    {
+     "text": "אין",
+     "start": 17.0,
+     "end": 17.48,
+     "hl": false
+    },
+    {
+     "text": "לך",
+     "start": 17.48,
+     "end": 17.62,
+     "hl": false
+    },
+    {
+     "text": "סיכוי",
+     "start": 17.62,
+     "end": 17.98,
+     "hl": true
+    }
+   ],
+   "scene": "army",
+   "spk": "david"
+  },
+  {
+   "start": 17.98,
+   "end": 18.84,
+   "words": [
+    {
+     "text": "להפיק",
+     "start": 17.98,
+     "end": 18.3,
+     "hl": false
+    },
+    {
+     "text": "מזה",
+     "start": 18.3,
+     "end": 18.5,
+     "hl": false
+    },
+    {
+     "text": "מידע",
+     "start": 18.5,
+     "end": 18.84,
+     "hl": true
+    }
+   ],
+   "scene": "army",
+   "spk": "david"
+  },
+  {
+   "start": 21.06,
+   "end": 22.14,
+   "words": [
+    {
+     "text": "אתה",
+     "start": 21.06,
+     "end": 21.28,
+     "hl": false
+    },
+    {
+     "text": "נכנס",
+     "start": 21.28,
+     "end": 21.54,
+     "hl": false
+    },
+    {
+     "text": "לפלטפורמה",
+     "start": 21.54,
+     "end": 22.14,
+     "hl": false
+    }
+   ],
+   "scene": "hero",
+   "spk": "david"
+  },
+  {
+   "start": 22.14,
+   "end": 22.56,
+   "words": [
+    {
+     "text": "שלנו",
+     "start": 22.14,
+     "end": 22.56,
+     "hl": false
+    }
+   ],
+   "scene": "hero",
+   "spk": "david"
+  },
+  {
+   "start": 22.62,
+   "end": 22.98,
+   "words": [
+    {
+     "text": "לצ'אט",
+     "start": 22.62,
+     "end": 22.98,
+     "hl": false
+    }
+   ],
+   "scene": "hero",
+   "spk": "david"
+  },
+  {
+   "start": 23.04,
+   "end": 24.12,
+   "words": [
+    {
+     "text": "ממש",
+     "start": 23.04,
+     "end": 23.34,
+     "hl": false
+    },
+    {
+     "text": "כמו",
+     "start": 23.34,
+     "end": 23.52,
+     "hl": false
+    },
+    {
+     "text": "ChatGPT",
+     "start": 23.52,
+     "end": 24.12,
+     "hl": true
+    }
+   ],
+   "scene": "hero",
+   "spk": "david"
+  },
+  {
+   "start": 24.29,
+   "end": 25.61,
+   "words": [
+    {
+     "text": "תן",
+     "start": 24.29,
+     "end": 24.91,
+     "hl": false
+    },
+    {
+     "text": "לי",
+     "start": 24.91,
+     "end": 25.09,
+     "hl": false
+    },
+    {
+     "text": "את",
+     "start": 25.09,
+     "end": 25.61,
+     "hl": false
+    }
+   ],
+   "scene": "chat",
+   "spk": "david"
+  },
+  {
+   "start": 25.61,
+   "end": 26.89,
+   "words": [
+    {
+     "text": "הדוחות",
+     "start": 25.61,
+     "end": 26.13,
+     "hl": false
+    },
+    {
+     "text": "הכספיים",
+     "start": 26.13,
+     "end": 26.69,
+     "hl": false
+    },
+    {
+     "text": "של",
+     "start": 26.69,
+     "end": 26.89,
+     "hl": false
+    }
+   ],
+   "scene": "chat",
+   "spk": "david"
+  },
+  {
+   "start": 26.89,
+   "end": 27.65,
+   "words": [
+    {
+     "text": "חברת",
+     "start": 26.89,
+     "end": 27.33,
+     "hl": false
+    },
+    {
+     "text": "אל על",
+     "start": 27.33,
+     "end": 27.65,
+     "hl": true
+    }
+   ],
+   "scene": "chat",
+   "spk": "david"
+  },
+  {
+   "start": 28.3,
+   "end": 28.56,
+   "words": [
+    {
+     "text": "אחד",
+     "start": 28.3,
+     "end": 28.56,
+     "hl": false
+    }
+   ],
+   "scene": "twothings",
+   "spk": "david"
+  },
+  {
+   "start": 28.74,
+   "end": 29.56,
+   "words": [
+    {
+     "text": "זה",
+     "start": 28.74,
+     "end": 28.84,
+     "hl": false
+    },
+    {
+     "text": "עדכניות",
+     "start": 28.84,
+     "end": 29.56,
+     "hl": true
+    }
+   ],
+   "scene": "twothings",
+   "spk": "david"
+  },
+  {
+   "start": 29.94,
+   "end": 30.26,
+   "words": [
+    {
+     "text": "שתיים",
+     "start": 29.94,
+     "end": 30.26,
+     "hl": false
+    }
+   ],
+   "scene": "twothings",
+   "spk": "david"
+  },
+  {
+   "start": 30.32,
+   "end": 30.68,
+   "words": [
+    {
+     "text": "זה",
+     "start": 30.32,
+     "end": 30.4,
+     "hl": false
+    },
+    {
+     "text": "דיוק",
+     "start": 30.4,
+     "end": 30.68,
+     "hl": true
+    }
+   ],
+   "scene": "twothings",
+   "spk": "david"
+  },
+  {
+   "start": 31.05,
+   "end": 32.19,
+   "words": [
+    {
+     "text": "אנחנו",
+     "start": 31.05,
+     "end": 31.55,
+     "hl": false
+    },
+    {
+     "text": "לא",
+     "start": 31.55,
+     "end": 31.67,
+     "hl": false
+    },
+    {
+     "text": "משתמשים",
+     "start": 31.67,
+     "end": 32.19,
+     "hl": false
+    }
+   ],
+   "scene": "noai",
+   "spk": "david"
+  },
+  {
+   "start": 32.19,
+   "end": 33.03,
+   "words": [
+    {
+     "text": "ב-AI",
+     "start": 32.19,
+     "end": 32.59,
+     "hl": true
+    },
+    {
+     "text": "בכלל",
+     "start": 32.59,
+     "end": 33.03,
+     "hl": true
+    }
+   ],
+   "scene": "noai",
+   "spk": "david"
+  },
+  {
+   "start": 33.3,
+   "end": 34.46,
+   "words": [
+    {
+     "text": "ככה",
+     "start": 33.3,
+     "end": 33.52,
+     "hl": false
+    },
+    {
+     "text": "שתמיד",
+     "start": 33.52,
+     "end": 34.0,
+     "hl": false
+    },
+    {
+     "text": "המספר",
+     "start": 34.0,
+     "end": 34.46,
+     "hl": false
+    }
+   ],
+   "scene": "trust",
+   "spk": "david"
+  },
+  {
+   "start": 34.46,
+   "end": 35.24,
+   "words": [
+    {
+     "text": "נאמן",
+     "start": 34.46,
+     "end": 34.8,
+     "hl": false
+    },
+    {
+     "text": "למקור",
+     "start": 34.8,
+     "end": 35.24,
+     "hl": true
+    }
+   ],
+   "scene": "trust",
+   "spk": "david"
+  },
+  {
+   "start": 35.48,
+   "end": 36.06,
+   "words": [
+    {
+     "text": "והוא",
+     "start": 35.48,
+     "end": 35.6,
+     "hl": false
+    },
+    {
+     "text": "מגיע",
+     "start": 35.6,
+     "end": 35.86,
+     "hl": false
+    },
+    {
+     "text": "עם",
+     "start": 35.86,
+     "end": 36.06,
+     "hl": false
+    }
+   ],
+   "scene": "trust",
+   "spk": "david"
+  },
+  {
+   "start": 36.06,
+   "end": 36.96,
+   "words": [
+    {
+     "text": "מספר",
+     "start": 36.06,
+     "end": 36.42,
+     "hl": false
+    },
+    {
+     "text": "אסמכתא",
+     "start": 36.42,
+     "end": 36.96,
+     "hl": true
+    }
+   ],
+   "scene": "trust",
+   "spk": "david"
+  },
+  {
+   "start": 37.3,
+   "end": 38.48,
+   "words": [
+    {
+     "text": "המערכת",
+     "start": 37.3,
+     "end": 37.86,
+     "hl": false
+    },
+    {
+     "text": "נותנת",
+     "start": 37.86,
+     "end": 38.28,
+     "hl": false
+    },
+    {
+     "text": "לך",
+     "start": 38.28,
+     "end": 38.48,
+     "hl": false
+    }
+   ],
+   "scene": "speed",
+   "spk": "david"
+  },
+  {
+   "start": 38.48,
+   "end": 39.08,
+   "words": [
+    {
+     "text": "את",
+     "start": 38.48,
+     "end": 38.62,
+     "hl": false
+    },
+    {
+     "text": "זה",
+     "start": 38.62,
+     "end": 38.76,
+     "hl": false
+    },
+    {
+     "text": "תוך",
+     "start": 38.76,
+     "end": 39.08,
+     "hl": false
+    }
+   ],
+   "scene": "speed",
+   "spk": "david"
+  },
+  {
+   "start": 39.08,
+   "end": 40.0,
+   "words": [
+    {
+     "text": "שניות",
+     "start": 39.08,
+     "end": 39.48,
+     "hl": true
+    },
+    {
+     "text": "בודדות",
+     "start": 39.48,
+     "end": 40.0,
+     "hl": false
+    }
+   ],
+   "scene": "speed",
+   "spk": "david"
+  },
+  {
+   "start": 40.3,
+   "end": 41.04,
+   "words": [
+    {
+     "text": "אבל",
+     "start": 40.3,
+     "end": 40.76,
+     "hl": false
+    },
+    {
+     "text": "זה",
+     "start": 40.76,
+     "end": 40.92,
+     "hl": false
+    },
+    {
+     "text": "לא",
+     "start": 40.92,
+     "end": 41.04,
+     "hl": false
+    }
+   ],
+   "scene": "nothours",
+   "spk": "david"
+  },
+  {
+   "start": 41.04,
+   "end": 41.44,
+   "words": [
+    {
+     "text": "שעות",
+     "start": 41.04,
+     "end": 41.44,
+     "hl": true
+    }
+   ],
+   "scene": "nothours",
+   "spk": "david"
+  },
+  {
+   "start": 41.5,
+   "end": 42.02,
+   "words": [
+    {
+     "text": "זה",
+     "start": 41.5,
+     "end": 41.6,
+     "hl": false
+    },
+    {
+     "text": "לא",
+     "start": 41.6,
+     "end": 41.72,
+     "hl": false
+    },
+    {
+     "text": "ימים",
+     "start": 41.72,
+     "end": 42.02,
+     "hl": true
+    }
+   ],
+   "scene": "nothours",
+   "spk": "david"
+  },
+  {
+   "start": 42.14,
+   "end": 42.92,
+   "words": [
+    {
+     "text": "זה",
+     "start": 42.14,
+     "end": 42.22,
+     "hl": false
+    },
+    {
+     "text": "לא",
+     "start": 42.22,
+     "end": 42.32,
+     "hl": false
+    },
+    {
+     "text": "שבועות",
+     "start": 42.32,
+     "end": 42.92,
+     "hl": true
+    }
+   ],
+   "scene": "nothours",
+   "spk": "david"
+  },
+  {
+   "start": 43.3,
+   "end": 43.84,
+   "words": [
+    {
+     "text": "הסוכן",
+     "start": 43.3,
+     "end": 43.64,
+     "hl": false
+    },
+    {
+     "text": "הזה",
+     "start": 43.64,
+     "end": 43.74,
+     "hl": false
+    },
+    {
+     "text": "גם",
+     "start": 43.74,
+     "end": 43.84,
+     "hl": false
+    }
+   ],
+   "scene": "skeletons",
+   "spk": "david"
+  },
+  {
+   "start": 43.84,
+   "end": 44.58,
+   "words": [
+    {
+     "text": "יודע",
+     "start": 43.84,
+     "end": 44.02,
+     "hl": false
+    },
+    {
+     "text": "להוציא",
+     "start": 44.02,
+     "end": 44.46,
+     "hl": false
+    },
+    {
+     "text": "מה",
+     "start": 44.46,
+     "end": 44.58,
+     "hl": false
+    }
+   ],
+   "scene": "skeletons",
+   "spk": "david"
+  },
+  {
+   "start": 44.58,
+   "end": 45.64,
+   "words": [
+    {
+     "text": "שנקרא",
+     "start": 44.58,
+     "end": 44.86,
+     "hl": false
+    },
+    {
+     "text": "שלדים",
+     "start": 44.86,
+     "end": 45.24,
+     "hl": true
+    },
+    {
+     "text": "מהארון",
+     "start": 45.24,
+     "end": 45.64,
+     "hl": true
+    }
+   ],
+   "scene": "skeletons",
+   "spk": "david"
+  },
+  {
+   "start": 45.8,
+   "end": 47.14,
+   "words": [
+    {
+     "text": "חברת",
+     "start": 45.8,
+     "end": 46.38,
+     "hl": false
+    },
+    {
+     "text": "בת",
+     "start": 46.38,
+     "end": 46.5,
+     "hl": false
+    },
+    {
+     "text": "מגייסת",
+     "start": 46.5,
+     "end": 47.14,
+     "hl": false
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 47.14,
+   "end": 47.48,
+   "words": [
+    {
+     "text": "חוב",
+     "start": 47.14,
+     "end": 47.48,
+     "hl": false
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 47.66,
+   "end": 49.08,
+   "words": [
+    {
+     "text": "250",
+     "start": 47.66,
+     "end": 48.26,
+     "hl": true
+    },
+    {
+     "text": "מיליון",
+     "start": 48.26,
+     "end": 49.08,
+     "hl": true
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 49.33,
+   "end": 50.31,
+   "words": [
+    {
+     "text": "אבל",
+     "start": 49.33,
+     "end": 49.59,
+     "hl": false
+    },
+    {
+     "text": "חברת",
+     "start": 49.59,
+     "end": 50.11,
+     "hl": false
+    },
+    {
+     "text": "האם",
+     "start": 50.11,
+     "end": 50.31,
+     "hl": false
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 50.31,
+   "end": 51.41,
+   "words": [
+    {
+     "text": "רוצה",
+     "start": 50.31,
+     "end": 50.59,
+     "hl": false
+    },
+    {
+     "text": "לחלק",
+     "start": 50.59,
+     "end": 50.91,
+     "hl": false
+    },
+    {
+     "text": "דיבידנד",
+     "start": 50.91,
+     "end": 51.41,
+     "hl": true
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 51.41,
+   "end": 52.21,
+   "words": [
+    {
+     "text": "מאוד",
+     "start": 51.41,
+     "end": 51.67,
+     "hl": false
+    },
+    {
+     "text": "מכובד",
+     "start": 51.67,
+     "end": 52.21,
+     "hl": false
+    }
+   ],
+   "scene": "deal",
+   "spk": "david"
+  },
+  {
+   "start": 52.55,
+   "end": 53.87,
+   "words": [
+    {
+     "text": "במקרה",
+     "start": 52.55,
+     "end": 53.11,
+     "hl": false
+    },
+    {
+     "text": "מדובר",
+     "start": 53.11,
+     "end": 53.53,
+     "hl": false
+    },
+    {
+     "text": "באותו",
+     "start": 53.53,
+     "end": 53.87,
+     "hl": false
+    }
+   ],
+   "scene": "samesum",
+   "spk": "david"
+  },
+  {
+   "start": 53.87,
+   "end": 54.17,
+   "words": [
+    {
+     "text": "סכום",
+     "start": 53.87,
+     "end": 54.17,
+     "hl": true
+    }
+   ],
+   "scene": "samesum",
+   "spk": "david"
+  },
+  {
+   "start": 54.8,
+   "end": 55.32,
+   "words": [
+    {
+     "text": "אם",
+     "start": 54.8,
+     "end": 54.94,
+     "hl": false
+    },
+    {
+     "text": "אני",
+     "start": 54.94,
+     "end": 55.12,
+     "hl": false
+    },
+    {
+     "text": "היום",
+     "start": 55.12,
+     "end": 55.32,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 55.32,
+   "end": 56.16,
+   "words": [
+    {
+     "text": "רוצה",
+     "start": 55.32,
+     "end": 55.56,
+     "hl": false
+    },
+    {
+     "text": "להשקיע",
+     "start": 55.56,
+     "end": 55.84,
+     "hl": false
+    },
+    {
+     "text": "בשוק",
+     "start": 55.84,
+     "end": 56.16,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 56.16,
+   "end": 57.02,
+   "words": [
+    {
+     "text": "ההון",
+     "start": 56.16,
+     "end": 56.38,
+     "hl": false
+    },
+    {
+     "text": "בארצות",
+     "start": 56.38,
+     "end": 56.72,
+     "hl": false
+    },
+    {
+     "text": "הברית",
+     "start": 56.72,
+     "end": 57.02,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 57.13,
+   "end": 57.43,
+   "words": [
+    {
+     "text": "אז",
+     "start": 57.13,
+     "end": 57.25,
+     "hl": false
+    },
+    {
+     "text": "יש",
+     "start": 57.25,
+     "end": 57.35,
+     "hl": false
+    },
+    {
+     "text": "לי",
+     "start": 57.35,
+     "end": 57.43,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 57.43,
+   "end": 57.95,
+   "words": [
+    {
+     "text": "המון",
+     "start": 57.43,
+     "end": 57.65,
+     "hl": false
+    },
+    {
+     "text": "מידע",
+     "start": 57.65,
+     "end": 57.95,
+     "hl": true
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 58.08,
+   "end": 58.9,
+   "words": [
+    {
+     "text": "ובארץ",
+     "start": 58.08,
+     "end": 58.44,
+     "hl": false
+    },
+    {
+     "text": "פשוט",
+     "start": 58.44,
+     "end": 58.72,
+     "hl": false
+    },
+    {
+     "text": "אין",
+     "start": 58.72,
+     "end": 58.9,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 58.9,
+   "end": 59.26,
+   "words": [
+    {
+     "text": "לנו",
+     "start": 58.9,
+     "end": 59.06,
+     "hl": false
+    },
+    {
+     "text": "את",
+     "start": 59.06,
+     "end": 59.18,
+     "hl": false
+    },
+    {
+     "text": "זה",
+     "start": 59.18,
+     "end": 59.26,
+     "hl": false
+    }
+   ],
+   "scene": "usa",
+   "spk": "david"
+  },
+  {
+   "start": 59.54,
+   "end": 61.58,
+   "words": [
+    {
+     "text": "ש-AI",
+     "start": 59.54,
+     "end": 61.28,
+     "hl": true
+    },
+    {
+     "text": "לא",
+     "start": 61.28,
+     "end": 61.44,
+     "hl": false
+    },
+    {
+     "text": "יכול",
+     "start": 61.44,
+     "end": 61.58,
+     "hl": false
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 61.58,
+   "end": 62.48,
+   "words": [
+    {
+     "text": "לתת",
+     "start": 61.58,
+     "end": 61.86,
+     "hl": false
+    },
+    {
+     "text": "לך",
+     "start": 61.86,
+     "end": 62.04,
+     "hl": false
+    },
+    {
+     "text": "המלצות",
+     "start": 62.04,
+     "end": 62.48,
+     "hl": true
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 62.7,
+   "end": 63.36,
+   "words": [
+    {
+     "text": "הוא",
+     "start": 62.7,
+     "end": 62.86,
+     "hl": false
+    },
+    {
+     "text": "יכול",
+     "start": 62.86,
+     "end": 63.06,
+     "hl": false
+    },
+    {
+     "text": "לתת",
+     "start": 63.06,
+     "end": 63.36,
+     "hl": false
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 63.36,
+   "end": 63.98,
+   "words": [
+    {
+     "text": "לך",
+     "start": 63.36,
+     "end": 63.56,
+     "hl": false
+    },
+    {
+     "text": "מידע",
+     "start": 63.56,
+     "end": 63.98,
+     "hl": true
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 64.14,
+   "end": 65.38,
+   "words": [
+    {
+     "text": "ואתה",
+     "start": 64.14,
+     "end": 64.64,
+     "hl": false
+    },
+    {
+     "text": "כאדם",
+     "start": 64.64,
+     "end": 64.94,
+     "hl": false
+    },
+    {
+     "text": "אחראי",
+     "start": 64.94,
+     "end": 65.38,
+     "hl": false
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 65.38,
+   "end": 66.38,
+   "words": [
+    {
+     "text": "תקבל",
+     "start": 65.38,
+     "end": 65.88,
+     "hl": false
+    },
+    {
+     "text": "את",
+     "start": 65.88,
+     "end": 66.0,
+     "hl": false
+    },
+    {
+     "text": "ההחלטה",
+     "start": 66.0,
+     "end": 66.38,
+     "hl": false
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 66.38,
+   "end": 66.56,
+   "words": [
+    {
+     "text": "הנכונה",
+     "start": 66.38,
+     "end": 66.56,
+     "hl": true
+    }
+   ],
+   "scene": "info",
+   "spk": "david"
+  },
+  {
+   "start": 66.8,
+   "end": 67.36,
+   "words": [
+    {
+     "text": "אני",
+     "start": 66.8,
+     "end": 67.14,
+     "hl": false
+    },
+    {
+     "text": "לא",
+     "start": 67.14,
+     "end": 67.22,
+     "hl": false
+    },
+    {
+     "text": "יודע",
+     "start": 67.22,
+     "end": 67.36,
+     "hl": false
+    }
+   ],
+   "scene": "crazy",
+   "spk": "danny"
+  },
+  {
+   "start": 67.36,
+   "end": 67.96,
+   "words": [
+    {
+     "text": "לאן",
+     "start": 67.36,
+     "end": 67.54,
+     "hl": false
+    },
+    {
+     "text": "זה",
+     "start": 67.54,
+     "end": 67.68,
+     "hl": false
+    },
+    {
+     "text": "הולך",
+     "start": 67.68,
+     "end": 67.96,
+     "hl": false
+    }
+   ],
+   "scene": "crazy",
+   "spk": "danny"
+  },
+  {
+   "start": 68.0,
+   "end": 68.52,
+   "words": [
+    {
+     "text": "אבל",
+     "start": 68.0,
+     "end": 68.14,
+     "hl": false
+    },
+    {
+     "text": "זה",
+     "start": 68.14,
+     "end": 68.22,
+     "hl": false
+    },
+    {
+     "text": "בטוח",
+     "start": 68.22,
+     "end": 68.52,
+     "hl": false
+    }
+   ],
+   "scene": "crazy",
+   "spk": "danny"
+  },
+  {
+   "start": 68.52,
+   "end": 69.4,
+   "words": [
+    {
+     "text": "הולך",
+     "start": 68.52,
+     "end": 68.68,
+     "hl": false
+    },
+    {
+     "text": "לכיוון",
+     "start": 68.68,
+     "end": 69.0,
+     "hl": false
+    },
+    {
+     "text": "משוגע",
+     "start": 69.0,
+     "end": 69.4,
+     "hl": true
+    }
+   ],
+   "scene": "crazy",
+   "spk": "danny"
+  }
+ ]
+}

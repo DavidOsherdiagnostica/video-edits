@@ -1,0 +1,224 @@
+[
+ {
+  "clip": "hook",
+  "part": 0,
+  "dur": 3.97,
+  "spk": "danny",
+  "audioOnly": true
+ },
+ {
+  "clip": "jaw",
+  "part": 0,
+  "dur": 0.85,
+  "spk": "david",
+  "faceX": 950,
+  "faceY": 361,
+  "x0": 712,
+  "audioOnly": false
+ },
+ {
+  "clip": "jaw",
+  "part": 1,
+  "dur": 3.55,
+  "spk": "david",
+  "faceX": 940,
+  "faceY": 334,
+  "x0": 702,
+  "audioOnly": false
+ },
+ {
+  "clip": "5000",
+  "part": 0,
+  "dur": 2.34,
+  "spk": "david",
+  "faceX": 952,
+  "faceY": 340,
+  "x0": 712,
+  "audioOnly": false
+ },
+ {
+  "clip": "pdf200",
+  "part": 0,
+  "dur": 3.38,
+  "spk": "david",
+  "faceX": 866,
+  "faceY": 330,
+  "x0": 626,
+  "audioOnly": false
+ },
+ {
+  "clip": "army",
+  "part": 0,
+  "dur": 1.66,
+  "spk": "david",
+  "faceX": 904,
+  "faceY": 300,
+  "x0": 666,
+  "audioOnly": false
+ },
+ {
+  "clip": "army",
+  "part": 1,
+  "dur": 2.0,
+  "spk": "david",
+  "faceX": 993,
+  "faceY": 372,
+  "x0": 754,
+  "audioOnly": false
+ },
+ {
+  "clip": "likegpt",
+  "part": 0,
+  "dur": 3.17,
+  "spk": "david",
+  "faceX": 938,
+  "faceY": 330,
+  "x0": 698,
+  "audioOnly": false
+ },
+ {
+  "clip": "elal",
+  "part": 0,
+  "dur": 3.45,
+  "spk": "david",
+  "faceX": 948,
+  "faceY": 322,
+  "x0": 710,
+  "audioOnly": false
+ },
+ {
+  "clip": "twothings",
+  "part": 0,
+  "dur": 2.49,
+  "spk": "david",
+  "faceX": 814,
+  "faceY": 337,
+  "x0": 574,
+  "audioOnly": false
+ },
+ {
+  "clip": "noai",
+  "part": 0,
+  "dur": 2.08,
+  "spk": "david",
+  "faceX": 893,
+  "faceY": 343,
+  "x0": 654,
+  "audioOnly": false
+ },
+ {
+  "clip": "faithful",
+  "part": 0,
+  "dur": 2.03,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "asmachta",
+  "part": 0,
+  "dur": 1.58,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "seconds",
+  "part": 0,
+  "dur": 2.8,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "nothours",
+  "part": 0,
+  "dur": 2.76,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "skeletons",
+  "part": 0,
+  "dur": 2.44,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "sub250",
+  "part": 0,
+  "dur": 3.38,
+  "spk": "david",
+  "faceX": 834,
+  "faceY": 327,
+  "x0": 596,
+  "audioOnly": false
+ },
+ {
+  "clip": "dividend",
+  "part": 0,
+  "dur": 2.98,
+  "spk": "david",
+  "faceX": 882,
+  "faceY": 334,
+  "x0": 644,
+  "audioOnly": false
+ },
+ {
+  "clip": "samesum",
+  "part": 0,
+  "dur": 1.74,
+  "spk": "david",
+  "faceX": 892,
+  "faceY": 283,
+  "x0": 654,
+  "audioOnly": false
+ },
+ {
+  "clip": "usa",
+  "part": 0,
+  "dur": 2.3,
+  "spk": "david",
+  "faceX": 894,
+  "faceY": 284,
+  "x0": 654,
+  "audioOnly": false
+ },
+ {
+  "clip": "usa",
+  "part": 1,
+  "dur": 0.92,
+  "spk": "david",
+  "faceX": 894,
+  "faceY": 326,
+  "x0": 656,
+  "audioOnly": false
+ },
+ {
+  "clip": "usa",
+  "part": 2,
+  "dur": 1.33,
+  "spk": "david",
+  "faceX": 867,
+  "faceY": 328,
+  "x0": 628,
+  "audioOnly": false
+ },
+ {
+  "clip": "info",
+  "part": 0,
+  "dur": 7.15,
+  "spk": "david",
+  "faceX": 878,
+  "faceY": 352,
+  "x0": 638,
+  "audioOnly": false
+ },
+ {
+  "clip": "crazy",
+  "part": 0,
+  "dur": 2.78,
+  "spk": "danny",
+  "faceX": 1014,
+  "faceY": 295,
+  "x0": 776,
+  "audioOnly": false
+ }
+]

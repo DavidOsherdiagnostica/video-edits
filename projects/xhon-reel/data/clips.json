@@ -1,0 +1,22 @@
+[
+  {"id": "hook", "spk": "danny", "parts": [[13.30, 17.27]]},
+  {"id": "jaw", "spk": "david", "parts": [[127.62, 128.47], [129.30, 132.85]]},
+  {"id": "5000", "spk": "david", "parts": [[164.28, 166.62]]},
+  {"id": "pdf200", "spk": "david", "parts": [[168.62, 172.00]]},
+  {"id": "army", "spk": "david", "parts": [[173.70, 175.36], [178.15, 180.15]]},
+  {"id": "likegpt", "spk": "david", "parts": [[276.95, 280.12]]},
+  {"id": "elal", "spk": "david", "parts": [[282.55, 286.00]]},
+  {"id": "twothings", "spk": "david", "parts": [[296.06, 298.55]]},
+  {"id": "noai", "spk": "david", "parts": [[346.28, 348.36]]},
+  {"id": "faithful", "spk": "david", "parts": [[364.92, 366.95]]},
+  {"id": "asmachta", "spk": "david", "parts": [[375.82, 377.40]]},
+  {"id": "seconds", "spk": "david", "parts": [[422.08, 424.88]]},
+  {"id": "nothours", "spk": "david", "parts": [[432.34, 435.10]]},
+  {"id": "skeletons", "spk": "david", "parts": [[443.48, 445.92]]},
+  {"id": "sub250", "spk": "david", "parts": [[477.34, 480.72]]},
+  {"id": "dividend", "spk": "david", "parts": [[487.24, 490.22]]},
+  {"id": "samesum", "spk": "david", "parts": [[497.76, 499.50]]},
+  {"id": "usa", "spk": "david", "parts": [[579.60, 581.90], [587.20, 588.12], [591.72, 593.05]]},
+  {"id": "info", "spk": "david", "parts": [[629.15, 636.30]]},
+  {"id": "crazy", "spk": "danny", "parts": [[646.02, 648.80]]}
+]
