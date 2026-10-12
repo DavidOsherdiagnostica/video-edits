@@ -97,26 +97,23 @@
   "audioOnly": false
  },
  {
-  "clip": "noai",
+  "clip": "inject",
   "part": 0,
-  "dur": 2.08,
-  "spk": "david",
-  "faceX": 893,
-  "faceY": 343,
-  "x0": 654,
-  "audioOnly": false
- },
- {
-  "clip": "faithful",
-  "part": 0,
-  "dur": 2.03,
+  "dur": 0.62,
   "spk": "david",
   "audioOnly": true
  },
  {
-  "clip": "asmachta",
+  "clip": "inject",
+  "part": 1,
+  "dur": 3.35,
+  "spk": "david",
+  "audioOnly": true
+ },
+ {
+  "clip": "sure",
   "part": 0,
-  "dur": 1.58,
+  "dur": 3.3,
   "spk": "david",
   "audioOnly": true
  },

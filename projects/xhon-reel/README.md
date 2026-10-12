@@ -15,7 +15,7 @@
 | `scripts/make_music.py` | סינתזה של טראק המוזיקה לפי הסצנות (`public/music.wav`) |
 | `scripts/make_sfx.py` | סינתזה של אפקטי הסאונד (`public/sfx/`) |
 | `src/scenes/Scenes.tsx` | כל הסצנות |
-| `src/components/` | Logo3D (לוגו מוחצן בתלת־ממד), PaperStorm (סערת דיווחים), Card3D, כתוביות, אפקטים |
+| `src/components/` | Logo2D (אנימציית הרכבת הלוגו), PaperStorm (סערת דיווחים), Card3D, כתוביות, אפקטים |
 
 ## בנייה מחדש
 
@@ -35,3 +35,9 @@ npx remotion render XhonReel out/xhon-reel.mp4 --crf=17 --audio-bitrate=320k
 כדי לשנות ציטוט: עורכים את `data/clips.json`, מריצים `prep_clips.py <id>` ואז `build_timeline.py` ו-`make_music.py`.
 
 `remotion.config.ts` מצביע על ה-Chromium המותקן בסביבה; במחשב אחר אפשר למחוק את שורת `setBrowserExecutable`.
+
+להחלפת קובץ המקור באיכות גבוהה יותר (אותה עריכה, אותם זמנים):
+
+```bash
+XHON_SRC="/path/to/better.mp4" .venv/bin/python scripts/prep_clips.py
+```

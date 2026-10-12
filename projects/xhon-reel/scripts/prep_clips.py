@@ -16,12 +16,15 @@ import cv2
 import numpy as np
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-SRC = os.path.join(ROOT, '..', '..', 'raw materials', 'ראיון עם דני רופ - הדבר הבא - עותק אתר.mp4')
+SRC = os.environ.get('XHON_SRC') or os.path.join(ROOT, '..', '..', 'raw materials', 'ראיון עם דני רופ - הדבר הבא - עותק אתר.mp4')
 OUT = os.path.join(ROOT, 'public', 'clips')
-AUDIO_ONLY = {'hook', 'faithful', 'asmachta', 'seconds', 'nothours', 'skeletons'}
-CLEAN_H = 845  # rows above the burned-in lower third
+AUDIO_ONLY = {'hook', 'inject', 'sure', 'seconds', 'nothours', 'skeletons'}
+_cap = cv2.VideoCapture(SRC)
+SRC_W = int(_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+SRC_H = int(_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+_cap.release()
+CLEAN_H = round(845 / 1080 * SRC_H / 2) * 2  # rows above the burned-in lower third
 CROP_W = round(CLEAN_H * 9 / 16 / 2) * 2
-SRC_W = 1916
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -34,15 +37,15 @@ def face_center(a, b):
         ok, frame = cap.read()
         if not ok:
             continue
-        gray = cv2.cvtColor(frame[:CLEAN_H, :1600], cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.1, 6, minSize=(90, 90))
+        gray = cv2.cvtColor(frame[:CLEAN_H, :int(SRC_W * 0.835)], cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.1, 6, minSize=(SRC_H // 12, SRC_H // 12))
         if len(faces):
             x, y, w, h = max(faces, key=lambda f: f[2] * f[3])
             xs.append(x + w / 2)
             ys.append(y + h / 2)
     cap.release()
     if not xs:
-        return SRC_W / 2, 300
+        return SRC_W / 2, SRC_H * 0.28
     return float(np.median(xs)), float(np.median(ys))
 
 

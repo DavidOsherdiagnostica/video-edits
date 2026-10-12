@@ -17,7 +17,7 @@ const SCENES: Record<string, {C: React.FC; rotate?: number; from?: number}> = {
   hero: {C: S.Hero},
   chat: {C: S.Chat},
   twothings: {C: S.TwoThings, rotate: -2},
-  noai: {C: S.NoAI},
+  inject: {C: S.Inject},
   trust: {C: S.Trust, rotate: 2},
   speed: {C: S.Speed},
   nothours: {C: S.NotHours, from: 1.3},
@@ -31,7 +31,7 @@ const SCENES: Record<string, {C: React.FC; rotate?: number; from?: number}> = {
 };
 
 const HIDDEN = ['count', 'pdf', 'chat', 'twothings', 'nothours', 'skeletons', 'logo', 'end'];
-const PLACEMENT = {hook: 'hero', hero: 'low', trust: 'low', speed: 'low', deal: 'low', usa: 'low'} as const;
+const PLACEMENT = {hook: 'hero', hero: 'low', inject: 'low', trust: 'low', speed: 'low', deal: 'low', usa: 'low'} as const;
 
 type Sfx = {file: string; at: number; vol?: number};
 
@@ -65,11 +65,12 @@ const sfxList = (): Sfx[] => {
     {file: 'whoosh', at: s('twothings') - 0.2, vol: 0.4},
     {file: 'pop', at: w('twothings', 'עדכניות') - 0.1, vol: 0.5},
     {file: 'pop', at: w('twothings', 'דיוק') - 0.1, vol: 0.5},
-    {file: 'whoosh-fast', at: s('noai') - 0.15, vol: 0.45},
-    {file: 'glitch', at: w('noai', 'בכלל') + 0.1, vol: 0.45},
-    {file: 'impact', at: w('noai', 'בכלל') + 0.1, vol: 0.4},
+    {file: 'whoosh', at: s('inject') - 0.2, vol: 0.45},
+    {file: 'whoosh-fast', at: w('inject', 'מזריק'), vol: 0.5},
+    {file: 'pop', at: w('inject', 'מזריק') + 16 / 30, vol: 0.6},
+    {file: 'shimmer', at: w('inject', 'מזריק') + 16 / 30, vol: 0.35},
     {file: 'whoosh', at: s('trust') - 0.2, vol: 0.45},
-    {file: 'pop', at: w('trust', 'למקור') - 0.1, vol: 0.5},
+    {file: 'pop', at: w('trust', 'נכון') - 0.1, vol: 0.5},
     {file: 'tick', at: w('trust', 'אסמכתא'), vol: 0.5},
     {file: 'shimmer', at: w('trust', 'אסמכתא'), vol: 0.3},
     {file: 'whoosh', at: s('speed') - 0.2, vol: 0.45},

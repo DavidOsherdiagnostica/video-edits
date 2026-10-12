@@ -6,7 +6,7 @@ import {Backdrop, glitchFilter, pop, shake} from '../components/Fx';
 import {NameTag, TalkingHead} from '../components/TalkingHead';
 import {Card3D} from '../components/Card3D';
 import {PaperStorm} from '../components/PaperStorm';
-import {Logo3D} from '../components/Logo3D';
+import {Logo2D} from '../components/Logo2D';
 import {PAGES} from '../components/three-utils';
 
 const len = (id: string) => f(scene(id).end) - f(scene(id).start);
@@ -88,6 +88,52 @@ const Chip: React.FC<{children: React.ReactNode; x: number; y: number; appear: n
   );
 };
 
+/** Solid brand pill: a white disc with the number, the word beside it. */
+const NumPill: React.FC<{n: number; x: number; y: number; appear: number; children: React.ReactNode}> = ({n, x, y, appear, children}) => {
+  const frame = useCurrentFrame();
+  const s = pop(frame, appear, 9);
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: x,
+        top: y,
+        transform: `translate(-50%, -50%) scale(${s})`,
+        opacity: frame < appear ? 0 : 1,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 30,
+        direction: 'rtl',
+        padding: '18px 60px 18px 18px',
+        minWidth: 520,
+        boxSizing: 'border-box',
+        borderRadius: 999,
+        background: `linear-gradient(135deg, ${C.tealBright}, ${C.teal})`,
+        boxShadow: `0 20px 60px rgba(0,0,0,0.55), 0 0 60px ${C.glow}44`,
+      }}
+    >
+      <div
+        style={{
+          width: 120,
+          height: 120,
+          borderRadius: 60,
+          background: C.white,
+          color: C.teal,
+          fontFamily: FONT.num,
+          fontWeight: 700,
+          fontSize: 76,
+          lineHeight: '120px',
+          textAlign: 'center',
+          flexShrink: 0,
+        }}
+      >
+        {n}
+      </div>
+      <div style={{fontFamily: FONT.he, fontWeight: 900, fontSize: 84, color: C.white, whiteSpace: 'nowrap'}}>{children}</div>
+    </div>
+  );
+};
+
 const Strike: React.FC<{appear: number; width: number; top: number; color?: string}> = ({appear, width, top, color = C.glow}) => {
   const frame = useCurrentFrame();
   const p = ease(frame, appear, appear + 6, Easing.out(Easing.cubic));
@@ -115,7 +161,6 @@ const count = (frame: number, a: number, b: number, to: number) =>
 /* ---------------------------------------------------------------- scenes */
 
 export const Hook: React.FC = () => {
-  const frame = useCurrentFrame();
   const d = len('hook');
   const hundred = at('hook', 'מאה');
   return (
@@ -125,22 +170,6 @@ export const Hook: React.FC = () => {
       <BigText top={330} size={300} appear={hundred} font={FONT.display} color={C.glow} outline spacing={0}>
         100
       </BigText>
-      <div
-        style={{
-          position: 'absolute',
-          top: 230,
-          width: '100%',
-          textAlign: 'center',
-          fontFamily: FONT.he,
-          fontSize: 38,
-          fontWeight: 500,
-          letterSpacing: 2,
-          color: C.mint,
-          opacity: ease(frame, 4, 18) * (1 - ease(frame, hundred - 4, hundred)),
-        }}
-      >
-        דוחות · הנפקות · דיווחים
-      </div>
     </AbsoluteFill>
   );
 };
@@ -283,7 +312,7 @@ export const Logo: React.FC = () => {
     <AbsoluteFill>
       <Backdrop />
       <AbsoluteFill style={{background: `radial-gradient(circle at 50% 46%, ${C.glow}33 0%, transparent 45%)`, opacity: ease(frame, 18, 30)}} />
-      <Logo3D dur={d} />
+      <Logo2D dur={d} y={940} />
       <div
         style={{
           position: 'absolute',
@@ -402,44 +431,116 @@ export const TwoThings: React.FC = () => {
       zooms={[[0, 1.05], [two - 2, 1.14]]}
       over={
         <>
-          <Chip x={540} y={1230} appear={one - 3} size={76}>
-            <span style={{fontFamily: FONT.num, color: C.glow, marginLeft: 20}}>01</span>עדכניות
-          </Chip>
-          <Chip x={540} y={1400} appear={two - 3} size={76}>
-            <span style={{fontFamily: FONT.num, color: C.glow, marginLeft: 20}}>02</span>דיוק
-          </Chip>
+          <NumPill n={1} x={540} y={1240} appear={one - 3}>
+            עדכניות
+          </NumPill>
+          <NumPill n={2} x={540} y={1420} appear={two - 3}>
+            דיוק
+          </NumPill>
         </>
       }
     />
   );
 };
 
-export const NoAI: React.FC = () => {
+export const Inject: React.FC = () => {
   const frame = useCurrentFrame();
-  const ai = at('noai', 'AI');
-  const never = at('noai', 'בכלל');
+  const answerAt = at('inject', 'עונה');
+  const inj = at('inject', 'מזריק');
+  const land = inj + 16;
+  const answer = 'ההכנסות של אל על ברבעון השני של 2026 הסתכמו ב-';
+  const typedN = Math.round(interpolate(frame, [answerAt, inj - 2], [0, answer.length], clamp));
+  const fly = interpolate(frame, [inj, land], [0, 1], {...clamp, easing: Easing.inOut(Easing.cubic)});
+  const landed = frame >= land;
+  const bubbleIn = ease(frame, 2, 16);
+  const from = {x: 540, y: 520};
+  const to = {x: 540, y: 1140};
+  const cx = from.x + (to.x - from.x) * fly + Math.sin(fly * Math.PI) * 260;
+  const cy = from.y + (to.y - from.y) * fly;
+  const chipScale = landed ? pop(frame, land, 8) : 1 + Math.sin(fly * Math.PI) * 0.25;
   return (
-    <TalkingHead
-      sceneId="noai"
-      zooms={[[0, 1.0], [never, 1.08]]}
-      shakes={[never + 3]}
-      glitches={[never + 3]}
-      behind={
-        <div style={{filter: glitchFilter(frame, never + 3)}}>
-          <BigText top={20} size={420} appear={ai - 3} font={FONT.num} weight={700} spacing={-16}>
-            AI
-          </BigText>
-          <Strike appear={never + 2} width={700} top={200} />
+    <AbsoluteFill>
+      <Backdrop />
+      <Card3D src="pdf/page-07.png" width={430} aspect={1.414} x={540} y={430} at={0} ry={[-14, 6]} rx={[16, 8]} z={[-120, -40]} dur={len('inject')} glow />
+      <Chip x={540} y={150} appear={4} size={40}>
+        דיווח מקורי · מאגנא
+      </Chip>
+      <div
+        style={{
+          position: 'absolute',
+          left: 60,
+          right: 60,
+          top: 830,
+          height: 400,
+          borderRadius: 44,
+          background: '#ffffff',
+          boxShadow: `0 0 0 3px ${C.mint}, 0 0 120px ${C.glow}44, 0 40px 120px rgba(0,0,0,0.6)`,
+          opacity: bubbleIn,
+          transform: `translateY(${(1 - bubbleIn) * 80}px)`,
+          direction: 'rtl',
+          padding: '40px 56px',
+          boxSizing: 'border-box',
+          fontFamily: FONT.he,
+        }}
+      >
+        <div style={{display: 'flex', alignItems: 'center', gap: 16, color: C.teal, fontWeight: 800, fontSize: 34, letterSpacing: 1}}>
+          <div style={{width: 18, height: 18, borderRadius: 9, background: C.tealBright, boxShadow: `0 0 16px ${C.glow}`}} />
+          <span style={{fontFamily: FONT.num}}>XHON</span>
         </div>
-      }
-    />
+        <div style={{marginTop: 18, fontSize: 50, fontWeight: 500, lineHeight: 1.3, color: '#1d2b2b', minHeight: 130}}>
+          {answer.slice(0, typedN)}
+          {typedN < answer.length && <span style={{display: 'inline-block', width: 4, height: 54, marginRight: 6, background: C.teal, verticalAlign: 'middle'}} />}
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            left: 540 - 60 - 170,
+            top: 1140 - 830 - 50,
+            width: 340,
+            height: 100,
+            borderRadius: 20,
+            border: `3px dashed ${C.tealBright}`,
+            opacity: frame >= inj - 8 && !landed ? 0.8 : 0,
+          }}
+        />
+      </div>
+      {frame >= inj - 6 && (
+        <div
+          style={{
+            position: 'absolute',
+            left: cx - 170,
+            top: cy - 50,
+            width: 340,
+            height: 100,
+            borderRadius: 20,
+            background: `linear-gradient(135deg, ${C.tealBright}, ${C.teal})`,
+            color: C.white,
+            fontFamily: FONT.num,
+            fontWeight: 700,
+            fontSize: 70,
+            lineHeight: '100px',
+            textAlign: 'center',
+            transform: `scale(${chipScale})`,
+            boxShadow: `0 0 ${landed ? 70 : 40}px ${C.glow}, 0 20px 50px rgba(0,0,0,0.5)`,
+            opacity: ease(frame, inj - 6, inj),
+          }}
+        >
+          $986M
+        </div>
+      )}
+      {landed && (
+        <div style={{position: 'absolute', top: 1265, width: '100%', textAlign: 'center', direction: 'rtl', fontFamily: FONT.he, fontSize: 38, fontWeight: 500, color: C.mint, opacity: ease(frame, land + 2, land + 12)}}>
+          ✓ המספר מוזרק ישירות מהדוח, לא נוצר על ידי ה-AI
+        </div>
+      )}
+    </AbsoluteFill>
   );
 };
 
 export const Trust: React.FC = () => {
   const frame = useCurrentFrame();
   const d = len('trust');
-  const src = at('trust', 'למקור');
+  const src = at('trust', 'נכון');
   const ref = at('trust', 'אסמכתא');
   const scan = interpolate(frame, [6, src + 6], [0, 100], clamp);
   const hl = ease(frame, ref - 3, ref + 6);
@@ -761,7 +862,7 @@ export const End: React.FC = () => {
     <AbsoluteFill>
       <Backdrop />
       <AbsoluteFill style={{background: `radial-gradient(circle at 50% 46%, ${C.glow}40 0%, transparent 50%)`}} />
-      <Logo3D dur={d} settle={1} />
+      <Logo2D dur={d} y={940} />
       <div
         style={{
           position: 'absolute',

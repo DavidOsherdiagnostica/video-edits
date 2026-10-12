@@ -22,7 +22,7 @@ rng = np.random.default_rng(3)
 scene = {s['id']: s for s in tl['scenes']}
 
 ENERGY = {'hook': 1, 'jaw': 2, 'count': 2, 'pdf': 2, 'army': 2, 'logo': 3, 'hero': 3, 'chat': 3,
-          'twothings': 3, 'noai': 3, 'trust': 3, 'speed': 3, 'nothours': 3, 'skeletons': 3, 'deal': 3,
+          'twothings': 3, 'inject': 3, 'trust': 3, 'speed': 3, 'nothours': 3, 'skeletons': 3, 'deal': 3,
           'samesum': 3, 'usa': 2, 'info': 1, 'crazy': 2, 'end': 4}
 
 
