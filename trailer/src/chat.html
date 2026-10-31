@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../fonts/local.css">
+<style>
+  :root {
+    --bg: #f3f2ef;
+    --panel: #ffffff;
+    --line: #e4e1dc;
+    --ink: #2b2b2b;
+    --muted: #8a8782;
+    --teal: #2d6f67;
+    --teal-dark: #1f5650;
+    --teal-soft: #a8c5c0;
+    --neg: #b23a3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+  body { font-family: 'Heebo', sans-serif; color: var(--ink); }
+
+  #stage { position: absolute; inset: 0; transform-origin: 40% 45%; }
+
+  /* Sidebar (right side in RTL) */
+  .sidebar {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 88px;
+    background: #f7f6f4; border-left: 1px solid var(--line);
+    display: flex; flex-direction: column; align-items: center; padding-top: 28px; gap: 34px;
+  }
+  .sidebar svg { width: 30px; height: 30px; stroke: #4a4a48; fill: none; stroke-width: 2; }
+  .sidebar .logo svg { width: 46px; height: 46px; stroke: var(--teal); stroke-width: 5; }
+  .sidebar .avatar {
+    margin-top: auto; margin-bottom: 30px; width: 46px; height: 46px; border-radius: 50%;
+    background: #e3e7e6; color: #3b4a48; font-weight: 600; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .main { position: absolute; top: 0; bottom: 0; left: 0; right: 88px; }
+
+  /* Composer */
+  .composer {
+    position: absolute; left: 50%; width: 1040px; margin-left: -520px;
+    background: var(--panel); border: 1.5px solid var(--line); border-radius: 22px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    padding: 30px 34px 84px;
+  }
+  .composer .text { font-size: 30px; line-height: 1.45; min-height: 44px; white-space: pre-wrap; }
+  .composer .placeholder { color: #a5a29c; }
+  .caret { display: inline-block; width: 2.5px; height: 34px; background: var(--ink); vertical-align: -6px; margin-right: 2px; }
+  .send {
+    position: absolute; left: 26px; bottom: 22px; width: 52px; height: 52px; border-radius: 50%;
+    background: var(--teal-soft); display: flex; align-items: center; justify-content: center;
+  }
+  .send svg { width: 26px; height: 26px; stroke: #fff; stroke-width: 3; fill: none; }
+  .hint { position: absolute; left: 0; right: 0; text-align: center; color: var(--muted); font-size: 18px; }
+
+  .welcome { position: absolute; left: 0; right: 0; text-align: center; }
+  .welcome .arrow svg { width: 70px; height: 70px; stroke: var(--teal); stroke-width: 5; fill: none; }
+  .welcome h1 { font-size: 46px; font-weight: 500; margin-top: 18px; color: #2f2f2d; }
+
+  /* Conversation */
+  .bubble {
+    position: absolute; top: 70px; right: 220px; max-width: 980px;
+    background: #e8eeec; border-radius: 22px 22px 6px 22px; padding: 20px 30px; font-size: 27px;
+  }
+  .thinking { position: absolute; top: 190px; right: 220px; font-size: 25px; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+  .spark svg { width: 34px; height: 34px; fill: var(--teal); }
+
+  .answer { position: absolute; top: 180px; right: 220px; width: 1380px; }
+  .answer .lead { font-size: 28px; line-height: 1.5; margin-bottom: 22px; }
+  .answer .lead b { font-weight: 700; }
+
+  table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--panel); border: 1.5px solid var(--line); border-radius: 18px; overflow: hidden; font-size: 25px; }
+  th { background: #f6f5f3; color: #5d5a55; font-weight: 500; font-size: 21px; text-align: right; padding: 18px 24px; border-bottom: 1.5px solid var(--line); }
+  td { padding: 19px 24px; border-bottom: 1px solid #efedea; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: left; direction: ltr; }
+  td.co { font-weight: 600; }
+  td.time { color: var(--muted); }
+  td.neg { color: var(--neg); }
+  .ref { display: inline-flex; align-items: center; gap: 8px; background: #edf3f2; color: var(--teal-dark); border-radius: 999px; padding: 5px 14px; font-size: 19px; direction: ltr; }
+  .ref .n { background: var(--teal); color: #fff; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; }
+  .sources { margin-top: 20px; color: var(--muted); font-size: 22px; }
+
+  .bars { position: absolute; left: 0; right: 0; height: 138px; background: #000; z-index: 50; }
+  .bars.top { top: 0; } .bars.bottom { bottom: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="main">
+    <div class="welcome" id="welcome">
+      <div class="arrow"><svg viewBox="0 0 48 48"><path d="M12 36 L36 12 M16 12 H36 V32"/></svg></div>
+      <h1>מה תרצו לדעת היום?</h1>
+    </div>
+
+    <div class="bubble" id="bubble"></div>
+
+    <div class="thinking" id="thinking">
+      <span class="spark"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg></span>
+      <span id="thinkingText"></span>
+    </div>
+
+    <div class="answer" id="answer">
+      <div class="lead" id="lead">הלילה הוגשו <b>5 דוחות רבעון 3</b> בחברות שברשימת המעקב שלך. ריכזתי את עיקרי הנתונים (₪ מיליונים):</div>
+      <table>
+        <thead><tr>
+          <th>חברה</th><th>הוגש</th><th class="num">הכנסות Q3</th><th class="num">שינוי שנתי</th><th class="num">רווח (הפסד) נקי</th><th>מקור</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="sources" id="sources">5 מקורות · כל נתון מקושר לדוח המקורי ברשות לניירות ערך</div>
+    </div>
+
+    <div class="composer" id="composer">
+      <div class="text" id="text"></div>
+      <div class="send" id="send"><svg viewBox="0 0 24 24"><path d="M12 19 V5 M5 12 L12 5 L19 12"/></svg></div>
+    </div>
+    <div class="hint" id="hint">כל תשובה מגיעה עם מספר אסמכתא לדיווח המקורי</div>
+  </div>
+
+  <div class="sidebar">
+    <div class="logo"><svg viewBox="0 0 48 48"><path d="M12 36 L36 12 M16 12 H36 V32"/></svg></div>
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 13h5l1 2h4l1-2h5"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M4 16l5-5 4 4 7-7M15 8h5v5"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></svg>
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20h4"/></svg>
+    <div class="avatar">AD</div>
+  </div>
+</div>
+<div class="bars top" id="barTop"></div>
+<div class="bars bottom" id="barBottom"></div>
+
+<script>
+const QUERY = 'סכם לי את כל הדוחות שהוגשו הלילה בחברות שברשימת המעקב שלי';
+
+// Real Q3-2025 figures from xhon (ILS millions), filed on the night of 30.11.2025.
+const ROWS = [
+  { co: "קבוצת חג'ג'",      time: '23:26', rev: '63.7',  yoy: '-44.6%',  net: '25.6',   neg: false, ref: '2025-01-094792' },
+  { co: 'רנט איט',          time: '22:40', rev: '17.2',  yoy: '+247.8%', net: '(8.4)',  neg: true,  ref: '2025-01-094784' },
+  { co: 'מגוריט ישראל',     time: '22:18', rev: '24.2',  yoy: '-51.7%',  net: '41.9',   neg: false, ref: '2025-01-094772' },
+  { co: 'מיטרוניקס',        time: '20:43', rev: '339.1', yoy: '+5.7%',   net: '(40.2)', neg: true,  ref: '2025-01-094745' },
+  { co: 'אקויטל',           time: '20:31', rev: '847.8', yoy: '-10.5%',  net: '238.8',  neg: false, ref: '2025-01-094740' },
+];
+
+const rowsEl = document.getElementById('rows');
+ROWS.forEach((r, i) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="co">${r.co}</td><td class="time">${r.time}</td>` +
+    `<td class="num">${r.rev}</td><td class="num">${r.yoy}</td>` +
+    `<td class="num ${r.neg ? 'neg' : ''}">${r.net}</td>` +
+    `<td><span class="ref"><span class="n">${i + 1}</span>${r.ref}</span></td>`;
+  rowsEl.appendChild(tr);
+});
+const rowEls = [...rowsEl.children];
+
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const ramp = (t, a, b) => ease((t - a) / (b - a));
+
+// Timeline (seconds)
+const T = {
+  barsOpen: [0.0, 0.6],
+  typeStart: 0.55, typeEnd: 2.75,
+  sendLight: 2.85, press: 3.05,
+  move: [3.15, 3.65],
+  think: [3.4, 4.75],
+  answer: 4.75, rowGap: 0.24,
+  sources: 6.35,
+};
+window.TIMELINE = T;
+
+window.render = function (t) {
+  // letterbox bars open as the product appears
+  const b = 138 * (1 - ramp(t, ...T.barsOpen));
+  $('barTop').style.height = b + 'px';
+  $('barBottom').style.height = b + 'px';
+
+  // slow cinematic push-in
+  $('stage').style.transform = `scale(${1 + 0.03 * clamp(t / 8)})`;
+
+  // typing
+  const n = Math.floor(QUERY.length * clamp((t - T.typeStart) / (T.typeEnd - T.typeStart)));
+  const typed = QUERY.slice(0, n);
+  const caretOn = t < T.press && (Math.floor(t * 2.2) % 2 === 0 || (t > T.typeStart && t < T.typeEnd));
+  $('text').innerHTML = typed.length
+    ? typed + (caretOn ? '<span class="caret"></span>' : '')
+    : (caretOn ? '<span class="caret"></span>' : '') + '<span class="placeholder">שאלו על דוחות, ישויות או מעקב...</span>';
+
+  // send button
+  const lit = t >= T.sendLight;
+  $('send').style.background = lit ? 'var(--teal)' : 'var(--teal-soft)';
+  const p = t >= T.press && t < T.press + 0.18 ? 0.86 : 1;
+  $('send').style.transform = `scale(${p})`;
+
+  // composer moves from center to bottom after sending
+  const m = ramp(t, ...T.move);
+  const composer = $('composer');
+  const centerTop = 470, bottomTop = 880;
+  composer.style.top = (centerTop + (bottomTop - centerTop) * m) + 'px';
+  composer.style.transform = `scale(${1 - 0.12 * m})`;
+  if (t >= T.move[0]) $('text').innerHTML = m > 0.5 ? '<span class="placeholder">שאלו על דוחות, ישויות או מעקב...</span>' : typed;
+  $('hint').style.top = (centerTop + 210 + (bottomTop + 170 - centerTop - 210) * m) + 'px';
+  $('hint').style.opacity = 1 - m;
+
+  $('welcome').style.top = '250px';
+  $('welcome').style.opacity = 1 - ramp(t, T.move[0], T.move[0] + 0.3);
+
+  // user bubble
+  const bOp = ramp(t, T.move[0] + 0.15, T.move[1]);
+  $('bubble').textContent = QUERY;
+  $('bubble').style.opacity = bOp;
+  $('bubble').style.transform = `translateY(${(1 - bOp) * 30}px)`;
+
+  // thinking
+  const steps = ['מאתר דוחות חדשים ברשימת המעקב...', 'קורא 5 דוחות רבעוניים...', 'מחלץ נתונים ומצליב מקורות...'];
+  const inThink = t >= T.think[0] && t < T.think[1];
+  $('thinking').style.opacity = inThink ? 0.55 + 0.45 * Math.abs(Math.sin(t * 5)) : 0;
+  const si = Math.min(steps.length - 1, Math.floor((t - T.think[0]) / ((T.think[1] - T.think[0]) / steps.length)));
+  $('thinkingText').textContent = steps[Math.max(0, si)];
+
+  // answer
+  const aOp = ramp(t, T.answer, T.answer + 0.3);
+  $('answer').style.opacity = aOp;
+  $('lead').style.opacity = aOp;
+  rowEls.forEach((el, i) => {
+    const s = T.answer + 0.35 + i * T.rowGap;
+    const o = ramp(t, s, s + 0.22);
+    el.style.opacity = o;
+    el.style.transform = `translateX(${(1 - o) * -24}px)`;
+  });
+  $('sources').style.opacity = ramp(t, T.sources, T.sources + 0.4);
+};
+window.render(0);
+</script>
+</body>
+</html>
