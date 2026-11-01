@@ -261,7 +261,7 @@ def build(clips, out):
     street = f"{clips}/רחוב בתל אביב עם מסמכים עפים לכל עבר.mp4"
     dry.add(clip_audio(street, T.STREET_SRC - S["street"], E["street"]), 0.0, 1.5)
     fx.add(sub_drop(), 0.25, 0.5)
-    fx.add(drone(S["typing"]), 0.0, 0.3)
+    fx.add(drone(S["night"]), 0.0, 0.3)
     fx.add(riser(E["street"] - S["street"] - 0.6), S["street"] + 0.6, 0.55)
     for name, g in (("flash1", 1.0), ("flash2", 1.0), ("flash3", 1.25)):
         fx.add(whoosh(0.4), S[name] - 0.4, 0.8, pan=-0.3)
@@ -272,8 +272,8 @@ def build(clips, out):
         fx.add(tick(1900, gain=0.5), S["stocks"] + 0.35 + k, 0.6, pan=0.2)
         fx.add(tick(1500, gain=0.4), S["stocks"] + 0.85 + k, 0.6, pan=-0.2)
 
-    # Act 2 — the night shift. A dark engine pulse and a clock that speeds up, from the typing through the push-in.
-    t0, t1 = S["typing"], S["office"] + T.OFFICE_WHITE
+    # Act 2 — the night. A dark engine pulse and a clock that speeds up, into the monitor's white.
+    t0, t1 = S["night"], S["night"] + T.NIGHT_WHITE
     span = t1 - t0
     six = 0.125
     i = 0
@@ -294,25 +294,27 @@ def build(clips, out):
         k += 1
     mus.add(tremolo_cluster(span, ["D4", "Eb4", "A4", "D5"], rise=2.0), t0, 0.3)
     cut = t0
-    for a, b in T.TYPING_CUTS:  # a taiko on every picture cut
-        mus.add(taiko(95, 1.0, 1.0), cut, 0.8)
-        mus.add(sub_drop(1.2, 70, 35), cut, 0.4)
+    for clip, a, b in T.NIGHT_CUTS:  # a taiko on every picture cut
+        mus.add(taiko(95 if clip == "office" else 110, 1.0, 1.0), cut, 0.75)
+        mus.add(sub_drop(1.2, 70, 35), cut, 0.35)
         cut += b - a
-    pos = t0
-    for a, b in T.TYPING_CUTS:
-        dry.add(clip_audio(f"{clips}/ההקדלה.mp4", a, b - a), pos, 1.4)
-        pos += b - a
 
-    o0 = S["office"]
-    dry.add(clip_audio(f"{clips}/סרטון מאחורה של האדם במשרד.mp4", T.OFFICE_SRC, T.OFFICE_WHITE, tempo=T.OFFICE_SPEED), o0, 1.2)
-    beat_t, beat_gap = o0 + 0.1, 0.95
+    # The push-in's own swell runs straight through the cutaways, and the keyboard runs under all of it
+    dry.add(clip_audio(f"{clips}/סרטון מאחורה של האדם במשרד.mp4", 0.0, T.NIGHT_WHITE), t0, 1.2)
+    bed_len = T.TYPING_BED[1] - T.TYPING_BED[0]
+    pos = t0
+    while pos < t1:
+        part = clip_audio(f"{clips}/ההקדלה.mp4", T.TYPING_BED[0], min(bed_len, t1 - pos + 0.2))
+        dry.add(part, pos, 1.6)
+        pos += bed_len - 0.2
+    beat_t, beat_gap = t0 + span * 0.45, 0.95
     while beat_t < t1 - 0.15:
         fx.add(heartbeat(), beat_t, 0.55)
         beat_t += beat_gap
         beat_gap = max(0.42, beat_gap * 0.86)
     for bt in np.arange(t1 - 2.0, t1 - 0.05, 0.25):  # taiko drive in the last two seconds
         mus.add(taiko(100, 0.6, 0.7 + 0.3 * (bt - t1 + 2.0) / 2.0), bt, 0.7)
-    fx.add(riser(T.OFFICE_WHITE), o0, 0.8)
+    fx.add(riser(span * 0.6), t1 - span * 0.6, 0.8)
     fx.add(whoosh(0.9), t1 - 0.9, 0.9)
     fx.add(flash_burst(), t1, 0.8)
 

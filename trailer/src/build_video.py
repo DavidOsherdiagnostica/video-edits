@@ -92,31 +92,28 @@ def build(clips, build_dir, out):
     flash("flash2", T.FLASH)
     flash("flash3", 2 * T.FLASH)
 
-    # 7. Typing montage — four cuts on the analyst's hands, coffee, the watch
+    # 7. The night: the push-in from behind, cut through with short typing inserts, into the monitor's white
+    srcs = {"office": 0, "typing": 1}
     trims = "".join(
-        f"[0]trim=start={a}:end={e},setpts=PTS-STARTPTS[t{k}];" for k, (a, e) in enumerate(T.TYPING_CUTS))
-    joins = "".join(f"[t{k}]" for k in range(len(T.TYPING_CUTS)))
-    run(["-i", typing, "-filter_complex",
-         f"{trims}{joins}concat=n={len(T.TYPING_CUTS)}:v=1:a=0,{GRADE},{BARS}",
-         "-frames:v", str(frames("typing")), *ENC, out_for("typing")])
-
-    # 8. Push-in from behind, through the monitor into pure white; the letterbox dissolves into the flash
-    white_at = T.OFFICE_WHITE
+        f"[{srcs[clip]}]trim=start={a}:end={e},setpts=PTS-STARTPTS[n{k}];"
+        for k, (clip, a, e) in enumerate(T.NIGHT_CUTS))
+    joins = "".join(f"[n{k}]" for k in range(len(T.NIGHT_CUTS)))
+    white_at = T.NIGHT_WHITE
     bar_src = ["-f", "lavfi", "-i", f"color=c=black:s={T.W}x{T.BAR}:r={T.FPS}"]
     white_src = ["-f", "lavfi", "-i", f"color=c=white:s={T.W}x{T.H}:r={T.FPS}"]
     bar_fade = f"format=rgba,fade=t=out:st={white_at - 0.45}:d=0.35:alpha=1"
-    run(["-ss", str(T.OFFICE_SRC), "-i", office, *bar_src, *bar_src, *white_src, "-filter_complex",
-         f"[0]setpts=(PTS-STARTPTS)/{T.OFFICE_SPEED},{GRADE}[v];"
-         f"[1]{bar_fade}[bt];[2]{bar_fade}[bb];"
-         f"[3]format=rgba,fade=t=in:st={white_at - 0.3}:d=0.3:alpha=1[w];"
+    run(["-i", office, "-i", typing, *bar_src, *bar_src, *white_src, "-filter_complex",
+         f"{trims}{joins}concat=n={len(T.NIGHT_CUTS)}:v=1:a=0,{GRADE}[v];"
+         f"[2]{bar_fade}[bt];[3]{bar_fade}[bb];"
+         f"[4]format=rgba,fade=t=in:st={white_at - 0.3}:d=0.3:alpha=1[w];"
          f"[v][bt]overlay=0:0[v1];[v1][bb]overlay=0:H-h[v2];[v2][w]overlay",
-         "-frames:v", str(frames("office")), *ENC, out_for("office")])
+         "-frames:v", str(frames("night")), *ENC, out_for("night")])
 
-    # 9. The xhon chat, emerging from the monitor's white
+    # 8. The xhon chat, emerging from the monitor's white
     run(["-framerate", str(T.FPS), "-i", str(b / "chat" / "f%04d.png"),
          "-vf", "format=yuv420p", "-frames:v", str(frames("chat")), *ENC, out_for("chat")])
 
-    # 10. End cards + the page that flutters away
+    # 9. End cards + the page that flutters away
     c1_in, c1_ov = card_overlay(cards / "c1.png", T.END_CARD1[0], 0.4, T.END_CARD1[1] - 0.4, 0.4)
     c5_in, c5_ov = card_overlay(cards / "c5.png", T.END_CARD2, 0.25)
     run([*black("cards_end"), *c1_in, *c5_in,
@@ -125,7 +122,7 @@ def build(clips, build_dir, out):
          f"[1]{c1_ov}[a];[2]{c5_ov}[c];[0][a]overlay[x];[x][c]overlay[y];[3]format=rgba[p];[y][p]overlay=eof_action=pass",
          "-frames:v", str(frames("cards_end")), *ENC, out_for("cards_end")])
 
-    # 11. Logo
+    # 10. Logo
     lg_in, lg_ov = card_overlay(cards / "logo.png", 0.3, 0.8, 2.35, 0.6)
     run([*black("logo"), *lg_in, "-filter_complex", f"[1]{lg_ov}[c];[0][c]overlay=shortest=1",
          "-frames:v", str(frames("logo")), *ENC, out_for("logo")])

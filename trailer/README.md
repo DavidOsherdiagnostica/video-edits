@@ -1,6 +1,6 @@
 # Earnings-season trailer — build
 
-Output: `out/earnings-season-trailer.mp4` (39.25s, 1080p24, −14 LUFS).
+Output: `out/earnings-season-trailer.mp4` (37.25s, 1080p24, −14 LUFS).
 
 Requirements: ffmpeg, Node with Playwright (Chromium), Python 3 with numpy, scipy, Pillow.
 
