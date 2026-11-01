@@ -4,6 +4,7 @@ Usage: python3 sound.py <scene-clips-dir> <out.wav>
 """
 import subprocess
 import sys
+from pathlib import Path
 
 import numpy as np
 from scipy.signal import butter, fftconvolve, sosfilt
@@ -242,6 +243,16 @@ def clip_audio(path, start, dur, tempo=1.0):
     return x
 
 
+def sample(path):
+    """Loads an audio file as a stereo float array at the project rate."""
+    cmd = ["ffmpeg", "-v", "error", "-i", str(path), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"]
+    raw = subprocess.run(cmd, capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(np.float64)
+
+
+HEARTBEAT_WAV = Path(__file__).resolve().parent.parent / "assets" / "heartbeat.wav"
+
+
 # ---------- score ----------
 
 def build(clips, out):
@@ -321,6 +332,13 @@ def build(clips, out):
     fx.add(sub_drop(2.4, 85, 30), press, 1.0)
     mus.add(taiko(85, 1.4, 1.2), press, 0.9)
     dry.add(key_click(1.6), press, 0.6)
+    # A real heartbeat under the whole chat, phased so beats fall on the send and on the answer landing
+    hb = sample(HEARTBEAT_WAV)
+    first = T.CHAT_PRESS % T.CHAT_HEARTBEAT
+    tt = first
+    while tt < E["chat"] - c0 - 0.3:
+        fx.add(hb, c0 + tt, 0.75)
+        tt += T.CHAT_HEARTBEAT
     landed = c0 + T.CHAT_TABLE
     fx.add(whoosh(0.35), landed - 0.35, 0.4)
     fx.add(sub_drop(2.0, 70, 32), landed, 0.75)

@@ -45,6 +45,7 @@ TYPING_BED = (0.0, 7.0)   # typing-clip audio used as a continuous bed (stops be
 CHAT_TYPE = (0.9, 2.9)
 CHAT_PRESS = 3.1          # first dramatic beat
 CHAT_TABLE = 4.5          # second beat: the answer lands
+CHAT_HEARTBEAT = 0.7      # heartbeat period (~86 bpm); the grid lands on both CHAT_PRESS and CHAT_TABLE
 
 # End cards, relative to START["cards_end"]
 END_CARD1 = (0.25, 1.75)
