@@ -172,12 +172,6 @@ def key_click(gain=1.0):
     return x * gain
 
 
-def blip(freq, dur=0.12, gain=1.0):
-    n = int(dur * SR)
-    t = tvec(dur)
-    return (np.sin(2 * np.pi * freq * t) + 0.3 * np.sin(4 * np.pi * freq * t)) * env(n, 0.002, 0.04) * gain
-
-
 def dark_pulse(freq, dur=0.12, gain=1.0):
     """Short, low, filtered pulse note — the ticking engine under the montage."""
     x = supersaw(freq, dur, 2, 6) + 0.5 * np.sin(2 * np.pi * freq * tvec(dur))
@@ -318,23 +312,20 @@ def build(clips, out):
     fx.add(whoosh(0.9), t1 - 0.9, 0.9)
     fx.add(flash_burst(), t1, 0.8)
 
-    # Act 3 — the chat: everything stops dead in the white; only the room and the keys
+    # Act 3 — the chat: everything stops dead in the white. Two beats only: the send, and the answer landing.
     c0 = S["chat"]
     dry.add(lp(noise(E["chat"] - c0), 800) * 0.01, c0, 1.0)
-    for k in range(T.CHAT_QUERY_LEN):
-        tt = c0 + T.CHAT_TYPE[0] + (T.CHAT_TYPE[1] - T.CHAT_TYPE[0]) * k / T.CHAT_QUERY_LEN + RNG.uniform(-0.012, 0.012)
-        dry.add(key_click(RNG.uniform(0.6, 1.0)), tt, 0.9, pan=RNG.uniform(-0.2, 0.2))
-    dry.add(key_click(1.4), c0 + T.CHAT_PRESS, 0.9)
-    dry.add(blip(1320, gain=0.6), c0 + T.CHAT_PRESS + 0.01, 0.4)
-    shimmer_d = T.CHAT_THINK[1] - T.CHAT_THINK[0]
-    tt_ = tvec(shimmer_d)
-    shimmer = sum(np.sin(2 * np.pi * note(nm) * tt_) for nm in ("D6", "A6", "E7")) * (0.5 + 0.5 * np.sin(2 * np.pi * 6 * tt_)) * env(len(tt_), 0.3, 1.0, 0.6) / 3
-    mus.add(shimmer, c0 + T.CHAT_THINK[0], 0.08)
-    fx.add(whoosh(0.3, reverse=True), c0 + T.CHAT_ANSWER - 0.3, 0.35)
-    for k, r in enumerate(T.CHAT_ROWS):
-        dry.add(blip(880 * 2 ** (k * 2 / 12), 0.1, 0.5), c0 + r, 0.35, pan=-0.3 + 0.15 * k)
-    swell = c0 + T.CHAT_SOURCES
-    fx.add(drone(E["chat"] - swell, 41.2) * np.linspace(0, 1, int((E["chat"] - swell) * SR)), swell, 0.6)
+    fx.add(drone(T.CHAT_PRESS, 41.2) * np.linspace(0, 1, int(T.CHAT_PRESS * SR)) ** 2, c0, 0.35)
+    press = c0 + T.CHAT_PRESS
+    fx.add(whoosh(0.45), press - 0.45, 0.6)
+    fx.add(sub_drop(2.4, 85, 30), press, 1.0)
+    mus.add(taiko(85, 1.4, 1.2), press, 0.9)
+    dry.add(key_click(1.6), press, 0.6)
+    landed = c0 + T.CHAT_TABLE
+    fx.add(whoosh(0.35), landed - 0.35, 0.4)
+    fx.add(sub_drop(2.0, 70, 32), landed, 0.75)
+    mus.add(taiko(75, 1.2, 1.0), landed, 0.7)
+    fx.add(drone(E["chat"] - landed, 41.2) * np.linspace(0.2, 1, int((E["chat"] - landed) * SR)), landed, 0.5)
     fx.add(riser(1.2), E["chat"] - 1.2, 0.35)
 
     # End cards

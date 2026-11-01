@@ -31,7 +31,7 @@ STOCKS_SRC = 2.5
 # interrupted by short typing inserts. (clip, source start, source end)
 NIGHT_CUTS = [
     ("office", 0.0, 2.0),
-    ("typing", 0.3, 1.0),   # hands on the keyboard, wide
+    ("typing", 0.8, 1.5),   # hands on the keyboard, wide (already mid-typing)
     ("office", 2.7, 4.2),
     ("typing", 3.2, 3.8),   # extreme close-up on the keys
     ("office", 4.8, 6.3),
@@ -42,13 +42,9 @@ NIGHT_WHITE = 9.0         # the frame is fully white, relative to START["night"]
 TYPING_BED = (0.0, 7.0)   # typing-clip audio used as a continuous bed (stops before the coffee)
 
 # Chat page timeline (mirrors window.TIMELINE in chat.html), relative to START["chat"]
-CHAT_TYPE = (0.55, 2.75)
-CHAT_QUERY_LEN = 60
-CHAT_PRESS = 3.05
-CHAT_THINK = (3.4, 4.75)
-CHAT_ANSWER = 4.75
-CHAT_ROWS = [4.75 + 0.35 + i * 0.24 for i in range(5)]
-CHAT_SOURCES = 6.35
+CHAT_TYPE = (0.9, 2.9)
+CHAT_PRESS = 3.1          # first dramatic beat
+CHAT_TABLE = 4.5          # second beat: the answer lands
 
 # End cards, relative to START["cards_end"]
 END_CARD1 = (0.25, 1.75)

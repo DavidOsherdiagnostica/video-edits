@@ -111,7 +111,7 @@ def build(clips, build_dir, out):
 
     # 8. The xhon chat, emerging from the monitor's white
     run(["-framerate", str(T.FPS), "-i", str(b / "chat" / "f%04d.png"),
-         "-vf", "format=yuv420p", "-frames:v", str(frames("chat")), *ENC, out_for("chat")])
+         "-vf", "noise=alls=3:allf=t+u,format=yuv420p", "-frames:v", str(frames("chat")), *ENC, out_for("chat")])
 
     # 9. End cards + the page that flutters away
     c1_in, c1_ov = card_overlay(cards / "c1.png", T.END_CARD1[0], 0.4, T.END_CARD1[1] - 0.4, 0.4)
