@@ -95,10 +95,11 @@ def reverb(x, seconds=2.4, mix=0.3, tone=5000):
 
 # ---------- instruments ----------
 
-def braam(dur=3.2, root="A1", minor=True):
+def braam(dur=3.2, root="A1", minor=True, power=False):
     third = 3 if minor else 4
     f0 = note(root)
-    tones = [f0, f0 * 2 ** (7 / 12), f0 * 2, f0 * 2 * 2 ** (third / 12)]
+    top = f0 * 2 * 2 ** (7 / 12) if power else f0 * 2 * 2 ** (third / 12)  # power chord: no third
+    tones = [f0, f0 * 2 ** (7 / 12), f0 * 2, top]
     body = sum(supersaw(f, dur, 4, 14) for f in tones)
     n = len(body)
     bright = hp(body, 700) * env(n, 0.01, 0.35)
@@ -177,17 +178,10 @@ def blip(freq, dur=0.12, gain=1.0):
     return (np.sin(2 * np.pi * freq * t) + 0.3 * np.sin(4 * np.pi * freq * t)) * env(n, 0.002, 0.04) * gain
 
 
-def brass_chord(names, dur, attack=0.18, decay=0.9, sustain=0.7, cutoff=1600):
-    x = sum(supersaw(note(nm), dur, 3, 8) for nm in names) / len(names)
-    n = len(x)
-    e = env(n, attack, decay, sustain, release=0.12, hold=dur - 0.12)
-    return np.tanh(1.8 * lp(x, cutoff, 2) * 1.6) * e
-
-
-def string_pluck(freq, dur=0.11, gain=1.0):
-    x = supersaw(freq, dur, 2, 6)
-    n = len(x)
-    return lp(x, 1400) * env(n, 0.002, 0.07, 0.0) * gain
+def dark_pulse(freq, dur=0.12, gain=1.0):
+    """Short, low, filtered pulse note — the ticking engine under the montage."""
+    x = supersaw(freq, dur, 2, 6) + 0.5 * np.sin(2 * np.pi * freq * tvec(dur))
+    return lp(x, 650) * env(len(x), 0.002, 0.06) * gain
 
 
 def heartbeat(gain=1.0):
@@ -218,18 +212,34 @@ def tremolo_cluster(dur, notes_, rise=1.0):
 
 
 def paper_flutter(dur):
+    n = int(dur * SR)
     t = tvec(dur)
-    flap = 0.5 + 0.5 * np.sin(2 * np.pi * (14 + 6 * np.sin(2 * np.pi * 0.8 * t)) * t)
-    x = bp(noise(dur), 900, 6000) * flap ** 3
-    e = np.minimum(1, t / 0.2) * np.minimum(1, (dur - t) / 0.5)
-    return x * e * 0.5
+    out = bp(noise(dur), 300, 2500) * 0.12 * (0.6 + 0.4 * np.sin(2 * np.pi * 3 * t)) ** 2  # air moving past the sheet
+    pos = 0.0
+    while pos < dur - 0.05:
+        rate = 9 + 14 * np.sin(np.pi * pos / dur)  # the sheet snaps fastest mid-flight
+        k = int(pos * SR)
+        m = int(RNG.uniform(0.012, 0.04) * SR)
+        lo = RNG.uniform(700, 2200)
+        crinkle = bp(RNG.standard_normal(m), lo, min(lo * RNG.uniform(2.5, 5), 16000)) * env(m, 0.001, RNG.uniform(0.004, 0.012))
+        out[k:k + m] += crinkle * RNG.uniform(0.4, 1.0)
+        pos += RNG.exponential(1 / rate)
+    e = np.minimum(1, t / 0.15) * np.minimum(1, (dur - t) / 0.4)
+    return out * e * 0.8
+
+
+def flash_burst(dur=0.6):
+    """Bright burst when the monitor floods the frame with white."""
+    n = int(dur * SR)
+    return (hp(noise(dur), 2000) * env(n, 0.003, 0.12) + lp(noise(dur), 400) * env(n, 0.002, 0.08)) * 0.8
 
 
 # ---------- clip audio ----------
 
-def clip_audio(path, start, dur):
-    cmd = ["ffmpeg", "-v", "error", "-ss", str(start), "-t", str(dur), "-i", path,
-           "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"]
+def clip_audio(path, start, dur, tempo=1.0):
+    """Reads `dur` seconds of output audio starting at `start` in the source (sped up by `tempo`)."""
+    cmd = ["ffmpeg", "-v", "error", "-ss", str(start), "-t", str(dur * tempo), "-i", path,
+           "-af", f"atempo={tempo}", "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"]
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     x = np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(np.float64)
     fade = int(0.03 * SR)
@@ -240,99 +250,75 @@ def clip_audio(path, start, dur):
 
 # ---------- score ----------
 
-def build(raw_dir, out):
+def build(clips, out):
     S = T.START
     E = T.END
     fx = Bus(T.TOTAL)      # sound design (gets its own reverb)
-    mus = Bus(T.TOTAL)     # music (gets its own reverb)
+    mus = Bus(T.TOTAL)     # tonal/rhythmic score (gets its own reverb)
     dry = Bus(T.TOTAL)     # clip audio and UI sounds, no reverb
 
-    # Act 1 — the threat
-    fx.add(drone(12.5), 0.0, 0.55)
-    fx.add(sub_drop(), 0.25, 0.9)
-    dry.add(clip_audio(f"{raw_dir}/רחוב בתל אביב עם מסמכים עפים לכל עבר.mp4", T.STREET_SRC, E["street"] - S["street"]), S["street"], 1.5)
+    # Act 1 — the threat. The street's own soundtrack starts on the very first frame, before we see it.
+    street = f"{clips}/רחוב בתל אביב עם מסמכים עפים לכל עבר.mp4"
+    dry.add(clip_audio(street, T.STREET_SRC - S["street"], E["street"]), 0.0, 1.5)
+    fx.add(sub_drop(), 0.25, 0.5)
+    fx.add(drone(S["typing"]), 0.0, 0.3)
     fx.add(riser(E["street"] - S["street"] - 0.6), S["street"] + 0.6, 0.55)
     for name, g in (("flash1", 1.0), ("flash2", 1.0), ("flash3", 1.25)):
         fx.add(whoosh(0.4), S[name] - 0.4, 0.8, pan=-0.3)
         fx.add(braam(3.0, "A1"), S[name], g)
         fx.add(sub_drop(1.6, 70, 30), S[name], 0.7)
-    dry.add(clip_audio(f"{raw_dir}/מסך מניות עם שעון מתקתק.mp4", T.STOCKS_SRC, E["stocks"] - S["stocks"]), S["stocks"], 1.3)
+    dry.add(clip_audio(f"{clips}/מסך מניות עם שעון מתקתק.mp4", T.STOCKS_SRC, E["stocks"] - S["stocks"]), S["stocks"], 1.3)
     for k in range(4):
         fx.add(tick(1900, gain=0.5), S["stocks"] + 0.35 + k, 0.6, pan=0.2)
         fx.add(tick(1500, gain=0.4), S["stocks"] + 0.85 + k, 0.6, pan=-0.2)
 
-    # Act 2 — the hero, alone in the office
-    beats = [0.25, 1.15, 1.95, 2.6, 3.1, 3.5]
-    for b in beats:
-        fx.add(heartbeat(), S["office"] + b, 0.6)
-    fx.add(drone(4.0, 49.0), S["office"], 0.35)
-    mus.add(tremolo_cluster(4.0, ["D4", "A4", "D5", "Eb5"]), S["office"], 0.22)
-    fx.add(riser(1.6), E["office"] - 1.6, 0.6)
-    fx.add(whoosh(0.5), E["office"] - 0.5, 0.7)
-
-    # Act 2b — superhero loop over the typing montage
-    t0 = S["typing"]
-    beat = 60 / T.BPM
-    six = beat / 4
-    bars = [("D2", ["D3", "F3", "A3", "D4"]), ("Bb1", ["Bb2", "D3", "F3", "Bb3"]),
-            ("F2", ["F2", "A2", "C3", "F3"]), ("C2", ["C3", "E3", "G3", "C4"])]
-    n_six = int((E["typing"] - t0) / six)
-    pattern = [0, 0, 12, 0, 0, 12, 0, 12, 0, 0, 12, 0, 12, 0, 12, 12]
-    for i in range(n_six):
-        bar = min(i // 16, 3)
-        root = note(bars[bar][0])
-        acc = 1.0 if i % 4 == 0 else 0.6
-        mus.add(string_pluck(root * 2 ** (pattern[i % 16] / 12), gain=acc), t0 + i * six, 0.5, pan=-0.25)
-        mus.add(string_pluck(root * 2 * 2 ** (pattern[(i + 2) % 16] / 12), gain=acc * 0.6), t0 + i * six, 0.3, pan=0.25)
-    for b in range(4):
-        start = t0 + b * 4 * beat
-        if start >= E["typing"]:
-            break
-        dur = min(4 * beat, E["typing"] - start) + 0.05
-        mus.add(brass_chord(bars[b][1], dur, attack=0.12, cutoff=1300 + 500 * b), start, 0.55 + 0.08 * b)
-        mus.add(brass_chord([bars[b][1][-1][:-1] + "5"], dur, attack=0.3, cutoff=3200), start, 0.12)
-    kick_steps = [0, 3, 6, 8, 11, 12, 14]
-    for i in range(n_six):
-        s = i % 16
-        bar = i // 16
+    # Act 2 — the night shift. A dark engine pulse and a clock that speeds up, from the typing through the push-in.
+    t0, t1 = S["typing"], S["office"] + T.OFFICE_WHITE
+    span = t1 - t0
+    six = 0.125
+    i = 0
+    while t0 + i * six < t1:
         tt = t0 + i * six
-        if s in kick_steps:
-            mus.add(taiko(105 if s in (0, 8) else 90, gain=1.0 if s in (0, 8) else 0.75), tt, 0.85)
-        if s in (4, 12):
-            mus.add(snare(gain=0.9), tt, 0.7)
-        if bar == 3 and s % 2 == 1:
-            mus.add(snare(gain=0.4 + 0.04 * s), tt, 0.6)
-    roll_start = E["typing"] - 1.4
+        u = (tt - t0) / span
+        root = note("D1") if (i // 32) % 2 == 0 else note("C1")
+        octave = 2 if i % 4 in (2, 3) else 1
+        accent = 1.0 if i % 4 == 0 else 0.55
+        mus.add(dark_pulse(root * octave, gain=accent), tt, 0.35 + 0.55 * u)
+        i += 1
+    tt, gap = t0, 0.5
     k = 0
-    tt = roll_start
-    while tt < E["typing"] - 0.02:
-        mus.add(snare(0.2, gain=0.25 + 0.6 * (tt - roll_start) / 1.4), tt, 0.55)
-        tt += max(0.035, 0.12 - 0.06 * (tt - roll_start))
+    while tt < t1:
+        fx.add(tick(1700 if k % 2 == 0 else 1250, gain=0.6), tt, 0.35 + 0.4 * (tt - t0) / span, pan=0.25 if k % 2 == 0 else -0.25)
+        tt += gap
+        gap = max(0.11, gap * 0.955)
         k += 1
-    for c in (t0, t0 + 8 * beat):
-        mus.add(crash(), c, 0.9)
-    mus.add(sub_drop(2.0), t0, 0.8)
-    melody = [("A4", 1), ("D5", 3), ("F5", 2), ("D5", 1), ("F5", 1), ("A5", 2), ("C6", 2), ("G5", 1.6)]
-    mt = t0
-    for nm, beats_ in melody:
-        dur = beats_ * beat
-        if mt >= E["typing"]:
-            break
-        dur = min(dur, E["typing"] - mt)
-        mus.add(brass_chord([nm], dur, attack=0.05, decay=0.5, sustain=0.8, cutoff=2600), mt, 0.28)
-        mt += beats_ * beat
-    mus.add(riser(1.5), E["typing"] - 1.5, 0.45)
-    typing_path = f"{raw_dir}/ההקדלה.mp4"
+    mus.add(tremolo_cluster(span, ["D4", "Eb4", "A4", "D5"], rise=2.0), t0, 0.3)
+    cut = t0
+    for a, b in T.TYPING_CUTS:  # a taiko on every picture cut
+        mus.add(taiko(95, 1.0, 1.0), cut, 0.8)
+        mus.add(sub_drop(1.2, 70, 35), cut, 0.4)
+        cut += b - a
     pos = t0
     for a, b in T.TYPING_CUTS:
-        seg = clip_audio(typing_path, a, b - a)
-        dry.add(seg, pos, 1.4)
+        dry.add(clip_audio(f"{clips}/ההקדלה.mp4", a, b - a), pos, 1.4)
         pos += b - a
 
-    # Act 3 — the chat: the music stops dead; only the room and the keys
+    o0 = S["office"]
+    dry.add(clip_audio(f"{clips}/סרטון מאחורה של האדם במשרד.mp4", T.OFFICE_SRC, T.OFFICE_WHITE, tempo=T.OFFICE_SPEED), o0, 1.2)
+    beat_t, beat_gap = o0 + 0.1, 0.95
+    while beat_t < t1 - 0.15:
+        fx.add(heartbeat(), beat_t, 0.55)
+        beat_t += beat_gap
+        beat_gap = max(0.42, beat_gap * 0.86)
+    for bt in np.arange(t1 - 2.0, t1 - 0.05, 0.25):  # taiko drive in the last two seconds
+        mus.add(taiko(100, 0.6, 0.7 + 0.3 * (bt - t1 + 2.0) / 2.0), bt, 0.7)
+    fx.add(riser(T.OFFICE_WHITE), o0, 0.8)
+    fx.add(whoosh(0.9), t1 - 0.9, 0.9)
+    fx.add(flash_burst(), t1, 0.8)
+
+    # Act 3 — the chat: everything stops dead in the white; only the room and the keys
     c0 = S["chat"]
-    room = lp(noise(E["chat"] - c0), 800) * 0.01
-    dry.add(room, c0, 1.0)
+    dry.add(lp(noise(E["chat"] - c0), 800) * 0.01, c0, 1.0)
     for k in range(T.CHAT_QUERY_LEN):
         tt = c0 + T.CHAT_TYPE[0] + (T.CHAT_TYPE[1] - T.CHAT_TYPE[0]) * k / T.CHAT_QUERY_LEN + RNG.uniform(-0.012, 0.012)
         dry.add(key_click(RNG.uniform(0.6, 1.0)), tt, 0.9, pan=RNG.uniform(-0.2, 0.2))
@@ -343,10 +329,10 @@ def build(raw_dir, out):
     shimmer = sum(np.sin(2 * np.pi * note(nm) * tt_) for nm in ("D6", "A6", "E7")) * (0.5 + 0.5 * np.sin(2 * np.pi * 6 * tt_)) * env(len(tt_), 0.3, 1.0, 0.6) / 3
     mus.add(shimmer, c0 + T.CHAT_THINK[0], 0.08)
     fx.add(whoosh(0.3, reverse=True), c0 + T.CHAT_ANSWER - 0.3, 0.35)
-    for i, r in enumerate(T.CHAT_ROWS):
-        dry.add(blip(880 * 2 ** (i * 2 / 12), 0.1, 0.5), c0 + r, 0.35, pan=-0.3 + 0.15 * i)
-    swell_start = c0 + T.CHAT_SOURCES
-    mus.add(brass_chord(["D3", "F#3", "A3", "D4"], E["chat"] - swell_start, attack=1.4, decay=2.0, sustain=1.0, cutoff=900), swell_start, 0.22)
+    for k, r in enumerate(T.CHAT_ROWS):
+        dry.add(blip(880 * 2 ** (k * 2 / 12), 0.1, 0.5), c0 + r, 0.35, pan=-0.3 + 0.15 * k)
+    swell = c0 + T.CHAT_SOURCES
+    fx.add(drone(E["chat"] - swell, 41.2) * np.linspace(0, 1, int((E["chat"] - swell) * SR)), swell, 0.6)
     fx.add(riser(1.2), E["chat"] - 1.2, 0.35)
 
     # End cards
@@ -355,13 +341,13 @@ def build(raw_dir, out):
     fx.add(drone(2.0, 55.0), k0, 0.25)
     fx.add(whoosh(0.4), k0 + T.END_CARD2 - 0.4, 0.8)
     hit = k0 + T.END_CARD2
-    mus.add(brass_chord(["D2", "A2", "D3", "F#3", "A3", "D4"], 4.5, attack=0.03, decay=1.6, sustain=0.35, cutoff=1800), hit, 0.95)
-    mus.add(taiko(95, 1.2, 1.2), hit, 1.0)
-    mus.add(crash(3.5, 1.2), hit, 0.9)
+    fx.add(braam(4.5, "D1", power=True), hit, 1.35)
+    mus.add(taiko(90, 1.4, 1.2), hit, 1.0)
+    mus.add(crash(3.5, 1.2), hit, 0.8)
     fx.add(sub_drop(3.0, 80, 28), hit, 1.0)
-    fx.add(paper_flutter(1.8), k0 + T.FLUTTER, 0.9, pan=-0.4)
-    fx.add(whoosh(0.5, reverse=False), k0 + T.FLUTTER + 1.2, 0.4, pan=-0.7)
-    mus.add(tremolo_cluster(3.0, ["D5", "A5"]) [::-1] * 0.5, S["logo"], 0.12)
+    dry.add(paper_flutter(T.FLUTTER_DURATION), k0 + T.FLUTTER, 1.0, pan=-0.3)
+    fx.add(whoosh(0.5, reverse=False), k0 + T.FLUTTER + T.FLUTTER_DURATION - 0.6, 0.35, pan=-0.7)
+    fx.add(drone(E["logo"] - S["logo"], 36.7) * np.linspace(1, 0, int((E["logo"] - S["logo"]) * SR)), S["logo"], 0.4)
 
     def gate(x, a, b, fade=0.03):
         i, j, f = int(a * SR), int(b * SR), int(fade * SR)
@@ -370,13 +356,10 @@ def build(raw_dir, out):
 
     fxw = reverb(fx.x, 2.8, 0.35)
     musw = reverb(mus.x, 2.0, 0.22)
-    # Hard cut to silence before the office shot
-    gate(fxw, T.START["silence"], T.START["office"])
-    gate(musw, T.START["silence"], T.START["office"])
-    # The deadpan cut: the score stops dead the moment the chat appears
-    gate(musw, T.END["typing"], T.START["chat"] + 0.02, fade=0.01)
-    i = int(T.END["typing"] * SR)
-    fxw[i:i + int(0.5 * SR)] *= 0.15
+    # The deadpan cut: the score dies in the monitor's white flash; the chat plays in near silence
+    gate(musw, t1 + 0.05, c0 + 0.02, fade=0.02)
+    i = int((t1 + 0.5) * SR)
+    fxw[i:int(c0 * SR)] *= 0.25
 
     mix = fxw * 0.9 + musw * 1.0 + dry.x
     mix = mix[: int(T.TOTAL * SR)]

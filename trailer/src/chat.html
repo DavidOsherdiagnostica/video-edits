@@ -82,8 +82,7 @@
   .ref .n { background: var(--teal); color: #fff; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; }
   .sources { margin-top: 20px; color: var(--muted); font-size: 22px; }
 
-  .bars { position: absolute; left: 0; right: 0; height: 138px; background: #000; z-index: 50; }
-  .bars.top { top: 0; } .bars.bottom { bottom: 0; }
+  #whiteout { position: absolute; inset: 0; background: #fff; z-index: 50; }
 </style>
 </head>
 <body>
@@ -132,8 +131,7 @@
     <div class="avatar">AD</div>
   </div>
 </div>
-<div class="bars top" id="barTop"></div>
-<div class="bars bottom" id="barBottom"></div>
+<div id="whiteout"></div>
 
 <script>
 const QUERY = 'סכם לי את כל הדוחות שהוגשו הלילה בחברות שברשימת המעקב שלי';
@@ -165,7 +163,7 @@ const ramp = (t, a, b) => ease((t - a) / (b - a));
 
 // Timeline (seconds)
 const T = {
-  barsOpen: [0.0, 0.6],
+  whiteout: [0.0, 0.7],
   typeStart: 0.55, typeEnd: 2.75,
   sendLight: 2.85, press: 3.05,
   move: [3.15, 3.65],
@@ -176,10 +174,8 @@ const T = {
 window.TIMELINE = T;
 
 window.render = function (t) {
-  // letterbox bars open as the product appears
-  const b = 138 * (1 - ramp(t, ...T.barsOpen));
-  $('barTop').style.height = b + 'px';
-  $('barBottom').style.height = b + 'px';
+  // we arrive through the monitor's white flash
+  $('whiteout').style.opacity = 1 - ramp(t, ...T.whiteout);
 
   // slow cinematic push-in
   $('stage').style.transform = `scale(${1 + 0.03 * clamp(t / 8)})`;
